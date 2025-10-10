@@ -1,1 +1,64 @@
-im adding global stylign here like the copyright / basic html setup
+  html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    background-color: #101112;
+    color: #e0e0e0;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .top-left-bar {
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    position: absolute;
+    top: 2vh;
+    left: 3vw;
+  }
+
+  .logo-frame {
+    width: 4vw;
+    max-width: 65px;
+    aspect-ratio: 1;
+    border: 0.25vh solid #252226;
+    border-radius: 1.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #181b1e;
+    overflow: hidden;
+  }
+
+  .logo {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    mix-blend-mode: lighten;
+  }
+
+  .logo-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.2;
+  }
+
+  .logo-text-container .main-text {
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
+  .logo-text-container .sub-text {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #aaa;
+  }
