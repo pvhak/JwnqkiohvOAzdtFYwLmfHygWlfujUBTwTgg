@@ -1,1 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+html,
+body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
 
+body {
+  background-color: #151516;
+  color: #e0e0e0;
+  font-family: "Poppins", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 12vh;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  box-sizing: border-box;
+}
+
+.content {
+  width: 90%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2vh;
+  flex: 1 1 auto;
+}
+
+.panel {
+  width: 100%;
+  background-color: #191a1e;
+  border: 0.1vh solid #2b2b2b;
+  border-radius: 1vh;
+  box-shadow: 0 0 1vh rgba(0, 0, 0, 0.4);
+  padding: 0.3vh 1vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.status-dot-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2vw;
+  max-width: 28px;
+  aspect-ratio: 1;
+  border: 0.15vh solid #252226;
+  border-radius: 0.5vh;
+  background-color: #181b1e;
+}
+
+.status-dot {
+  width: 0.8vw;
+  max-width: 11px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: #e93f40;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 3vw;
+  color: #ccc;
+  font-weight: 500;
+  user-select: none;
+}
+
+.actions span {
+  cursor: pointer;
+  transition: color 0.2s, transform 0.1s;
+}
+
+.actions span:hover {
+  color: #fff;
+}
+
+.actions span:active {
+  transform: scale(0.96);
+  color: #00aaff;
+}
+
+#editor-container {
+  width: 100%;
+  height: 70vh;
+  background-color: #191a1e;
+  border: 0.1vh solid #2b2b2b;
+  border-radius: 1vh;
+  box-shadow: 0 0 1vh rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  display: flex;
+}
+
+#editor {
+  width: 100% !important;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.logo-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.logo-text-container .main-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.logo-text-container .sub-text {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #aaa;
+}
+
+/* copyright ❤️ (hi iqsm) */
+.top-left-bar{display:flex;align-items:center;gap:1vw;position:absolute;top:2vh;left:3vw}.logo,.logo-frame{position:relative}.logo-frame{width:4vw;max-width:65px;aspect-ratio:1;border:.25vh solid #252226;border-radius:1.5vh;display:flex;align-items:center;justify-content:center;background-color:#181b1e;overflow:hidden}.logo-frame::before{content:"";position:absolute;inset:0;background:radial-gradient(circle,rgba(255,255,255,.4) 0,rgba(255,255,255,.1) 40%,rgba(255,255,255,0) 65%);opacity:0;z-index:0;animation:4.5s ease-in-out infinite logoGlowInner}@keyframes logoGlowInner{0%,100%{opacity:.1;transform:scale(.95)}40%{opacity:.9;transform:scale(1.1)}60%{opacity:.6;transform:scale(1.05)}}.logo{width:70%;height:70%;object-fit:contain;mix-blend-mode:lighten;z-index:1}.logo-text-container{display:flex;flex-direction:column;justify-content:center;line-height:1.2}.logo-text-container .main-text{font-size:1.8rem;font-weight:600}.logo-text-container .sub-text{font-size:.75rem;font-weight:400;color:#aaa}
