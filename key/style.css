@@ -1,0 +1,125 @@
+  html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://files.catbox.moe/i1i2vd.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  body {
+    background-color: #151516;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .login-panel {
+    width: 90%;
+    max-width: 480px;
+    background-color: transparent;
+    border-radius: 1vh;
+    padding: 4vh 3vw;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .login-heading {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1vh;
+    color: #ffffff;
+  }
+
+  .login-subtext {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 3vh;
+    opacity: 0.6;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2vh;
+  }
+
+  .form-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5vh;
+    opacity: 0.6;
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #131417;
+    border: 1px solid #303237;
+    border-radius: 0.8vh;
+    padding: 2vh 1vw;
+    transition: border-color 0.2s;
+  }
+
+  .input-wrapper svg {
+    width: 18px;
+    height: 18px;
+    margin-right: 0.7vw;
+    opacity: 0.7;
+  }
+
+  .login-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #e0e0e0;
+    flex: 1;
+    font-size: 1rem;
+  }
+
+  .login-button {
+    background-color: #1d1f20;
+    color: #e0e0e0;
+    font-weight: 550;
+    font-size: 1.05rem;
+    border: 1px solid #323439;
+    border-radius: 0.8vh;
+    padding: 2.3vh 0;
+    margin-top: 3vh;
+    width: 40%;
+    align-self: flex-start;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.08s ease;
+  }
+  .required { color: #76b9cb; }
+
+  .login-button:hover {
+    background-color: #212324;
+    border-color: #3d3f44;
+    color: #ffffff;
+  }
+
+  .login-button:active {
+    background-color: #1a1a1c;
+    border-color: #2a2d31;
+    transform: scale(0.97);
+  }
