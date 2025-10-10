@@ -1,1 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8967 | Editor</title>
+  <link rel="stylesheet" href="/editor/style.css" />
+</head>
+<body>
+  <div class="top-left-bar">
+    <div class="logo-frame">
+      <img src="https://raw.githubusercontent.com/pvhak/JwnqkiohvOAzdtFYwLmfHygWlfujUBTwTgg/refs/heads/main/icon.png" class="logo" alt="Logo" />
+    </div>
+    <div class="logo-text-container">
+      <span class="main-text">8967</span>
+      <span class="sub-text">© 2025 book.club</span>
+    </div>
+  </div>
 
+  <div class="content">
+    <div class="panel top-bar-container">
+      <div class="status">
+        <div class="status-dot-container">
+          <div class="status-dot"></div>
+        </div>
+        Not Connected
+      </div>
+      <div class="actions">
+        <span id="clear-btn">Clear</span>
+        <span id="execute-btn">Execute</span>
+      </div>
+    </div>
+    <div id="editor-container">
+      <div id="editor"></div>
+    </div>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
+  <script>
+    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs' } });
+    require(["vs/editor/editor.main"], function () {
+      monaco.editor.defineTheme('retarded-dark', {
+        base: 'vs-dark',
+        inherit: true,
+        rules: [],
+        colors: {'editor.background': '#191a1e',}
+      });
+
+      const editor = monaco.editor.create(document.getElementById('editor'), {
+        value: "-- book.club",
+        language: "lua",
+        theme: "retarded-dark",
+        automaticLayout: true,
+        fontSize: 14,
+        minimap: { enabled: false },
+        scrollBeyondLastLine: false,
+        roundedSelection: false,
+      });
+  </script>
+  <script> // seperated so i can later on make 2 diff files, 1 for monaco and 1 for buttons :p
+      document.getElementById("clear-btn").addEventListener("click", () => editor.setValue(""));
+      document.getElementById("execute-btn").addEventListener("click", () => {
+        console.log(editor.getValue());
+      });
+    });
+  </script>
+</body>
+</html>
