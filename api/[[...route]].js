@@ -17,7 +17,8 @@ export default function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
   // ---------------------
 
-  const path = (req.url.split("?")[0] || "").toLowerCase();
+  const { pathname } = new URL(req.url, `http://${req.headers.host}`);
+  const path = pathname.toLowerCase();
   const { user, key, value, code } = req.query;
 
   // does this nigga exist?
