@@ -6,8 +6,8 @@ let state = global.__STATE__ || {
   code: { fatguy7: "no code set" },
 };
 
-const ADMIN_KEY = process.env.ADMIN_KEY || "burger";
-const verytuffkey = "fatguy7";
+const verytuffkey = process.env.verytuffkey || "burger";
+const usernameok = "fatguy7";
 
 export default function handler(req, res) {
   // ------ cors headers NIGGAAAA
@@ -21,7 +21,7 @@ export default function handler(req, res) {
   const { user, key, value, code } = req.query;
 
   // does this nigga exist?
-  if (!user || user !== verytuffkey) {
+  if (!user || user !== usernameok) {
     return res.status(404).json({ error: "user not found!" });
   }
 
@@ -32,7 +32,7 @@ export default function handler(req, res) {
   }
 
   if (path.endsWith("/cstatus")) { // c stands for change btw
-    if (key !== ADMIN_KEY)
+    if (key !== verytuffkey)
       return res.status(403).json({ error: "wrong password" });
     if (value !== undefined) {state.status[user] = value === "true";} else {state.status[user] = !state.status[user];}
     global.__STATE__ = state;
@@ -40,14 +40,14 @@ export default function handler(req, res) {
   }
 
   if (path.endsWith("/getcode")) {
-    if (key !== ADMIN_KEY)
+    if (key !== verytuffkey)
       return res.status(403).json({ error: "wrong password" });
     const message = state.code[user] ?? "nothing";
     return res.status(200).json({ user, code: message });
   }
 
   if (path.endsWith("/ccode")) {
-    if (key !== ADMIN_KEY)
+    if (key !== verytuffkey)
       return res.status(403).json({ error: "wrong password" });
     if (!code)
       return res.status(400).json({ error: 'missing code' });
