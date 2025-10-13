@@ -1,18 +1,17 @@
+import cors from "./_cors"; // so.. i had to add this.... 😂
 let tststs = false;
 
 export default function handler(req, res) {
+  cors(res);
+  if (req.method === "OPTIONS") return res.status(200).end();
+
   const { key, value } = req.query;
   if (key !== "test") {return res.status(403).json({ error: "nooo" });}
 
   if (req.method === "POST") {
-    if (value === "true") {
-      tststs = true;
-    } else if (value === "false") {
-      tststs = false;
-    } else {
-      return res.status(400).json({ error: "?" });
-    }
-
+    if (value === "true") tststs = true;
+    else if (value === "false") tststs = false;
+    else return res.status(400).json({ error: ? });
     return res.status(200).json({ success: true, status: tststs });
   }
 
