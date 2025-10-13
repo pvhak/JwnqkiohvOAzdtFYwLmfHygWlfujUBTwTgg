@@ -1,5 +1,5 @@
 import cors from "./_cors";
-import { cstatus, setStatus } from "../lib/shared.js";
+import { cstatus, setstatus } from "../lib/shared.js";
 
 export default function handler(req, res) {
   cors(res);
