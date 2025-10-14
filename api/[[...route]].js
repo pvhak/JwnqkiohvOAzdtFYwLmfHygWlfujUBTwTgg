@@ -35,25 +35,29 @@ export default function handler(req, res) {
   const { user, password, value, code } = req.query;
   const users = getusernames();
 
-  if (path.endsWith("/login")) {
-    if (!user || !password || !users[user] || password !== users[user]) {
-      return res.status(403).json({ error: "wrong key" });
-    }
+if (path.endsWith("/login")) {
+  if (!user || !password || !users[user] || password !== users[user]) {
+    return res.status(403).json({ error: "wrong key" });
+  }
 
-    const expires = new Date(Date.now() + 2 * 60 * 60 * 1000); // 2h btw
-    res.setHeader(
-      "Set-Cookie",
-      cookie.serialize("auth", JSON.stringify({ user, password }), {
+  const expires = new Date(Date.now() + 2 * 60 * 60 * 1000); // 2h
+
+  res.setHeader(
+    "Set-Cookie",
+    cookie.serialize(
+      "auth",
+      encodeURIComponent(JSON.stringify({ user, password })),
+      {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
         sameSite: "lax",
         path: "/",
         expires,
-      })
-    );
-
-    return res.status(200).json({ redirect: "/editor" });
-  }
+      }
+    )
+  );
+  return res.status(200).json({ redirect: "/editor" });
+}
 
   let auth_user = null;
   let auth_pass = null;
