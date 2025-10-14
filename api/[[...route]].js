@@ -66,14 +66,15 @@ if (path.endsWith("/login")) {
     const cookies = cookie.parse(req.headers.cookie || "");
     if (cookies.auth) {
       try {
-        const parsed = JSON.parse(cookies.auth);
+        const parsed = JSON.parse(decodeURIComponent(cookies.auth));
         if (users[parsed.user] && parsed.password === users[parsed.user]) {
           auth_user = parsed.user;
           auth_pass = parsed.password;
         }
-      } catch {}
+    } catch (err) {console.error("failed to parse cookie:", err);}
     }
   }
+
 
   // if no cookies then just fallback ok?
   if (!auth_user && user && password && users[user] && password === users[user]) {auth_user = user;auth_pass = password;}
