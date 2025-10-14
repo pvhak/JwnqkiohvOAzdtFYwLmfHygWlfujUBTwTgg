@@ -12,12 +12,26 @@ const verytuffkey = process.env.verytuffkey || "burger";
 // parse this shit nigga
 function getusernames() {
   const env_data = process.env.MVZWK6DPOV2HA5LU || "";
+
+  console.log("raw");
+  console.log(env_data);
+
   const lines = env_data.split(/\r?\n/).filter(Boolean);
+  console.log("split lines");
+  console.log(lines);
+
   const users = {};
   for (const line of lines) {
     const [username, password] = line.split(":");
-    if (username && password) {users[username.trim()] = password.trim();}
+    if (username && password) {
+      users[username.trim()] = password.trim();
+    } else {
+      console.warn("malformed lines", line);
+    }
   }
+
+  console.log("parsed");
+  console.log(users);
   return users;
 }
 
