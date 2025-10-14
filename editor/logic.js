@@ -14,8 +14,7 @@ function updstatus(status) {
   );
 
   if (!statustxt) {
-    statustxt = document.createTextNode(status ? "Connected" : "Not Connected");
-    statustxtc.appendChild(statustxt);
+       console.warn("ermmm2");
   }
 
   if (status) {
