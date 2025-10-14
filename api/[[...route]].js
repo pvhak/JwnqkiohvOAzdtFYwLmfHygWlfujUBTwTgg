@@ -100,7 +100,7 @@ export default function handler(req, res) {
   }
 
   if (path.endsWith("/getcode")) {
-    const message = state.code[auth_user] ?? "nothing";
+    const message = state.code[auth_user] ?? "";
     return res.status(200).json({ user: auth_user, code: message });
   }
 
