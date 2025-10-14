@@ -77,14 +77,26 @@ export default function handler(req, res) {
 
   // --- handle routes ---
   if (path.endsWith("/getstatus")) {
-    const status = state.status[auth_user] ?? false;
-    return res.status(200).json({ user: auth_user, status });
+    const user_status = state.status[auth_user];
+    const isctd = user_status?.value || false;
+    if (user_status && Date.now() - user_status.lastUpdate > 15000) {state.status[auth_user].value = false;}
+    return res.status(200).json({ user: auth_user, status: state.status[auth_user].value });
   }
 
   if (path.endsWith("/cstatus")) {
-    if (value !== undefined) {state.status[auth_user] = value === "true";} else {state.status[auth_user] = !state.status[auth_user];}
+    const new_status = value !== undefined ? value === "true" : !state.status[auth_user]?.value;
+    state.status[auth_user] = { value: new_status, lastUpdate: Date.now() };
+
+    setTimeout(() => {
+      const current = state.status[auth_user];
+      if (current && Date.now() - current.lastUpdate >= 15000) {
+        state.status[auth_user].value = false;
+        global.__STATE__ = state;
+      }
+    }, 15000);
+
     global.__STATE__ = state;
-    return res.status(200).json({ user: auth_user, status: state.status[auth_user] });
+    return res.status(200).json({ user: auth_user, status: state.status[auth_user].value });
   }
 
   if (path.endsWith("/getcode")) {
