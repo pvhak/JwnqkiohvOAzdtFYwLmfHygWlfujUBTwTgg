@@ -15,8 +15,10 @@ window.addEventListener("DOMContentLoaded", () => {
     const user = document.getElementById("username").value.trim();
     const pass = document.getElementById("password").value.trim();
     if (!user || !pass) return;
-    try {
-      const resp = await fetch(`/api/login?user=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`);
+      const resp = await fetch(`/api/login?user=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`, {
+        method: "POST",
+         credentials: "include",
+      });
       const data = await resp.json();
       if (data.redirect) {
         window.location.href = data.redirect;
