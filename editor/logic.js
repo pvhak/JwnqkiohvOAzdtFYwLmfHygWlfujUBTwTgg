@@ -1,19 +1,3 @@
-function get_coookie() {
-  const cookies = document.cookie.split(";").map(c => c.trim());
-  for (const c of cookies) {
-    if (c.startsWith("auth=")) {
-      try {
-        const parsed = JSON.parse(decodeURIComponent(c.split("=")[1]));
-        return parsed.user;
-      } catch {}
-    }
-  }
-  return null;
-}
-
-const user = get_coookie();
-if (!user) {window.location.href = "/";} // get out nigga
-
 let last_status = null;
 
 function updstatus(status) {
@@ -43,16 +27,32 @@ async function poll_status() {
       last_status = data.status;
       updstatus(last_status);
     }
-  } catch (err) { console.error(err); }
+  } catch (err) {
+    console.error("Failed to fetch status:", err);
+  }
 }
 
-poll_status(); // can this be called a precum??
+poll_status();
 setInterval(poll_status, 2000);
 
-document.getElementById("clear-btn").addEventListener("click", () => {window.editor.setValue("");});
+document.getElementById("clear-btn").addEventListener("click", () => {window.editor.setValue("");}); // took me 6 years to make this one line..
+
 document.getElementById("execute-btn").addEventListener("click", async () => {
   const code = window.editor.getValue();
-  const resp = await fetch(`/api/ccode?code=${encodeURIComponent(code)}`);
-  const result = await resp.json();
-  console.log(result);
+
+  try {
+    const resp = await fetch(`/api/ccode?code=${encodeURIComponent(code)}`, {
+      credentials: "include",
+    });
+
+    if (!resp.ok) {
+      console.error("error..", resp.status);
+      return;
+    }
+
+    const result = await resp.json();
+    console.log(result);
+  } catch (err) {
+    console.error("failed to exec; ", err);
+  }
 });
