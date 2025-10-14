@@ -17,10 +17,7 @@ function updstatus(status) {
 
 async function poll_status() {
   try {
-    const resp = await fetch(
-      `/api/login?user=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`,
-      { credentials: "include" }
-    );
+    const resp = await fetch("/api/getstatus", { credentials: "include" });
 
     if (resp.status === 403) {
       window.location.href = "/";
@@ -33,8 +30,11 @@ async function poll_status() {
       last_status = data.status;
       updstatus(last_status);
     }
-  } catch (err) {console.error("failed to fetch status:", err);}
+  } catch (err) {
+    console.error("failed to fetch status:", err);
+  }
 }
+
 
 window.addEventListener("DOMContentLoaded", () => {
   poll_status();
