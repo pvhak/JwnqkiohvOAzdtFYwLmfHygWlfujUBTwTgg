@@ -112,6 +112,6 @@ export default function handler(req, res) {
     return res.status(200).json({ user: auth_user, code: state.code[auth_user] });
   }
 
-  // incase some retard goes api/getporn or smth
+  // incase some retard goes to api/getporn or smth
   return res.status(404).json({ error: "https://nigger.gamer.gd/vixelfunk-feet.gif" });
 }
