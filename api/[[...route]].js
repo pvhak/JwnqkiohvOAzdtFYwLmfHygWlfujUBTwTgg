@@ -93,6 +93,7 @@ export default function handler(req, res) {
         const current = state.status[auth_user];
         if (current && Date.now() - current.lastUpdate >= 15000) {
           state.status[auth_user].value = false;
+          state.code[auth_user] = ""; // so u dont auto-execute shit from ur last session (learnt this the hard way 3;)
           global.__STATE__ = state;
         }
       }, 15000);
@@ -100,6 +101,7 @@ export default function handler(req, res) {
       global.__STATE__ = state;
       return res.status(200).json({ user: auth_user, status: state.status[auth_user].value });
     }
+
 
     if (path.endsWith("/getcode")) {
       const message = state.code[auth_user] ?? "";
