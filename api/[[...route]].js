@@ -41,7 +41,6 @@ if (path.endsWith("/login")) {
   }
 
   const expires = new Date(Date.now() + 2 * 60 * 60 * 1000); // 2h
-
   res.setHeader(
     "Set-Cookie",
     cookie.serialize(
@@ -50,12 +49,13 @@ if (path.endsWith("/login")) {
       {
         httpOnly: true,
         secure: true,
-        sameSite: "lax",
+        sameSite: "none",
         path: "/",
         expires,
       }
     )
   );
+
   return res.status(200).json({ redirect: "/editor" });
 }
 
