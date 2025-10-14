@@ -4,10 +4,7 @@ function updstatus(status) {
   const dot = document.querySelector(".status-dot");
   const statustxt = document.querySelector(".status-text");
 
-  if (!dot || !statustxt) {
-    console.warn("selements not found");
-    return;
-  }
+  if (!dot || !statustxt) {return;}
 
   if (status) {
     dot.style.backgroundColor = "#64F575";
@@ -16,8 +13,6 @@ function updstatus(status) {
     dot.style.backgroundColor = "#e93f40";
     statustxt.textContent = "Not Connected";
   }
-
-  console.log("dot ->", dot, "status text ->", statustxt.textContent);
 }
 
 async function poll_status() {
@@ -30,15 +25,12 @@ async function poll_status() {
     }
 
     const data = await resp.json();
-    console.log("fetched status ->", data);
 
     if (data.status !== last_status) {
       last_status = data.status;
       updstatus(last_status);
     }
-  } catch (err) {
-    console.error("failed to fetch status:", err);
-  }
+  } catch (err) {console.error("failed to fetch status:", err);}
 }
 
 window.addEventListener("DOMContentLoaded", () => {
