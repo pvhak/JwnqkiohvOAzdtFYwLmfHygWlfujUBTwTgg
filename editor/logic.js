@@ -43,10 +43,10 @@ async function poll_status() {
       last_status = data.status;
       updstatus(last_status);
     }
-  } catch (err) {console.error(err);}
+  } catch (err) { console.error(err); }
 }
 
-poll_status();
+poll_status(); // can this be called a precum??
 setInterval(poll_status, 2000);
 
 document.getElementById("clear-btn").addEventListener("click", () => {window.editor.setValue("");});
