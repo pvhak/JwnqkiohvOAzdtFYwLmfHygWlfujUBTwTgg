@@ -32,7 +32,7 @@ function updstatus(status) {
 
 async function poll_status() {
   try {
-    const resp = await fetch(`/api/getstatus?user=${encodeURIComponent(user)}`);
+    const resp = await fetch("/api/getstatus", { credentials: "include" });
     if (resp.status === 403) {
       window.location.href = "/";
       return;
