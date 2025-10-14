@@ -2,30 +2,22 @@ let last_status = null;
 
 function updstatus(status) {
   const dot = document.querySelector(".status-dot");
-  const statustxtc = document.querySelector(".status");
+  const statustxt = document.querySelector(".status-text");
 
-  if (!dot || !statustxtc) {
-    console.warn("ermmm");
+  if (!dot || !statustxt) {
+    console.warn("selements not found");
     return;
-  }
-
-  let statustxt = [...statustxtc.childNodes].find(
-    n => n.nodeType === Node.TEXT_NODE
-  );
-
-  if (!statustxt) {
-       console.warn("ermmm2");
   }
 
   if (status) {
     dot.style.backgroundColor = "#64F575";
-    statustxt.nodeValue = "Connected";
+    statustxt.textContent = "Connected";
   } else {
     dot.style.backgroundColor = "#e93f40";
-    statustxt.nodeValue = "Not Connected";
+    statustxt.textContent = "Not Connected";
   }
 
-  console.log("dot ->", dot, "status text ->", statustxt.nodeValue);
+  console.log("dot ->", dot, "status text ->", statustxt.textContent);
 }
 
 async function poll_status() {
