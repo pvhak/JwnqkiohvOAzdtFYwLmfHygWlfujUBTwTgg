@@ -17,7 +17,10 @@ function updstatus(status) {
 
 async function poll_status() {
   try {
-    const resp = await fetch("https://8967.vercel.app/api/getstatus", {credentials: "include",});
+    const resp = await fetch(
+      `/api/login?user=${encodeURIComponent(user)}&password=${encodeURIComponent(pass)}`,
+      { credentials: "include" }
+    );
 
     if (resp.status === 403) {
       window.location.href = "/";
