@@ -41,6 +41,10 @@ window.addEventListener("DOMContentLoaded", () => {
   setInterval(poll_status, 2000);
   document.getElementById("clear-btn")?.addEventListener("click", () => {window.editor.setValue("");});
   document.getElementById("execute-btn")?.addEventListener("click", async () => {
+    if (!last_status) {
+       console.warn("yo bro ur not attached");
+       return;
+    }
     const code = window.editor.getValue();
     try {
       const resp = await fetch(`/api/ccode?code=${encodeURIComponent(code)}`, {
