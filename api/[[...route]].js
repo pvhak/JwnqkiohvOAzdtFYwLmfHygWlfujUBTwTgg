@@ -1,13 +1,25 @@
 // [[...route]].js - thanks docs for this name
 // /api/getstatus, /api/changestatus, /api/getcode, /api/ccode
-// btw this is just testing
+// semi functional version??
+
 let state = global.__STATE__ || {
-  status: { fatguy7: false },
-  code: { fatguy7: "no code set" },
+  status: {},
+  code: {},
 };
 
 const verytuffkey = process.env.verytuffkey || "burger";
-const usernameok = "fatguy7";
+
+// parse this shit nigga
+function getusernames() {
+  const env_data = process.env.MVZWK6DPOV2HA5LU || "";
+  const lines = env_data.split(/\r?\n/).filter(Boolean);
+  const users = {};
+  for (const line of lines) {
+    const [username, password] = line.split(":");
+    if (username && password) {users[username.trim()] = password.trim();}
+  }
+  return users;
+}
 
 export default function handler(req, res) {
   // ------ cors headers NIGGAAAA
@@ -15,24 +27,24 @@ export default function handler(req, res) {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   if (req.method === "OPTIONS") return res.status(200).end();
-  // ---------------------
+  // ---------------------------
 
   const { pathname } = new URL(req.url, `http://${req.headers.host}`);
   const path = pathname.toLowerCase();
-  const { user, key, value, code } = req.query;
+  const { user, key, value, code, password } = req.query;
+  const users = getusernames();
 
-  // does this nigga exist?
-  if (!user || user !== usernameok) {
-    return res.status(404).json({ error: "user not found!" });
-  }
+  // validation
+  if (!user || !users[user]) { return res.status(404).json({ error: "user not found!" }); }
+  if (password && password !== users[user]) { return res.status(403).json({ error: "wrong password" }); }
 
-  // ------ routs
+  // --- handle routes ---
   if (path.endsWith("/getstatus")) {
     const status = state.status[user] ?? false;
     return res.status(200).json({ user, status });
   }
 
-  if (path.endsWith("/cstatus")) { // c stands for change btw
+  if (path.endsWith("/cstatus")) {
     if (key !== verytuffkey)
       return res.status(403).json({ error: "wrong password" });
     if (value !== undefined) {state.status[user] = value === "true";} else {state.status[user] = !state.status[user];}
