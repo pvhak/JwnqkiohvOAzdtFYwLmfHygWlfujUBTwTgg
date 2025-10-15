@@ -15,7 +15,12 @@ window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("login-btn").addEventListener("click", async function () {
     const user = document.getElementById("username").value.trim();
     const pass = document.getElementById("password").value.trim();
-    if (!user || !pass) return;
+    if (!user || !pass) {
+      alert("Enter password/username!!");
+      console.error("oh my fucking god i hate this retard so much");
+      return;
+    }
+
 
     try {
       const resp = await fetch(
