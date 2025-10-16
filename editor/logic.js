@@ -50,7 +50,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("execute-btn")?.addEventListener("click", async () => {
     if (!last_status) {
-      notify("Please connect first.", "info", 4000);
+      notify("You're not connected!", "info", 4000);
       return;
     }
 
