@@ -20,7 +20,7 @@ async function upd_pfp(username) {
   if (!pimg) return;
 
   if (!username) {
-    pimg.src = "/default_pfp.png";
+    pimg.src = "/imgs/default_pfp.png";
     return;
   }
 
