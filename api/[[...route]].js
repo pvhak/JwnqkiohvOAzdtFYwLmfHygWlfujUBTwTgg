@@ -54,6 +54,22 @@ export default function handler(req, res) {
       return res.status(200).json({ redirect: "/editor" });
     }
 
+    // logout
+    if (path.endsWith("/logout")) {
+      res.setHeader(
+        "Set-Cookie",
+        cookie.serialize("auth", "", {
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          path: "/",
+          expires: new Date(0), // expire NOW!!!!!!!
+        })
+      );
+      return res.status(200).json({ message: "logged out" });
+    }
+
+    
     // auth
     let auth_user = null;
     if (req.headers.cookie) {
