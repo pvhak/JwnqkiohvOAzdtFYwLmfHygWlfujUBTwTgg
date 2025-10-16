@@ -5,6 +5,15 @@ let state = global.__STATE__ || {
   code: {},
 };
 
+function gen_scriptid() { // im using this to update my exe logic *\0/*
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let id = "";
+  for (let i = 0; i < 12; i++) {
+    id += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return id;
+}
+
 function getusernames() {
   const env_data = process.env.MVZWK6DPOV2HA5LU || "";
   const lines = env_data.split(/\r?\n/).filter(Boolean);
@@ -15,6 +24,8 @@ function getusernames() {
   }
   return users;
 }
+
+let lscript_id = null; // to avoid duplicates of scriptids (is this even possible..?)
 
 export default function handler(req, res) {
   try {
@@ -120,11 +131,17 @@ export default function handler(req, res) {
       global.__STATE__ = state;
       return res.status(200).json({ user: auth_user, status: state.status[auth_user].value });
     }
-
-
+    
     if (path.endsWith("/getcode")) {
       const message = state.code[auth_user] ?? "";
-      return res.status(200).json({ user: auth_user, code: message });
+
+      let script_id;
+      do {
+        script_id = gen_scriptid();
+      } while (script_id === lscript_id);
+      lscript_id = script_id;
+
+      return res.status(200).json({user: auth_user,code: message,"script-id": script_id,});
     }
 
     if (path.endsWith("/ccode")) {
