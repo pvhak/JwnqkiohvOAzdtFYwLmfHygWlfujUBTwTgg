@@ -153,12 +153,6 @@ export default function handler(req, res) {
       return res.status(200).json({user: auth_user,code: code,"script-id": n_scid,});
     }
     
-    if (path.endsWith("/ccode")) {
-      if (!code) return res.status(400).json({ error: "missing code" });
-      state.code[auth_user] = code;
-      global.__STATE__ = state;
-      return res.status(200).json({ user: auth_user, code: state.code[auth_user] });
-    }
 
     return res.status(404).json({ error: "not found" });
   } catch (err) {
