@@ -63,11 +63,14 @@ export default function handler(req, res) {
           secure: true,
           sameSite: "none",
           path: "/",
-          expires: new Date(0), // expire NOW!!!!!!!
+          expires: new Date(0), // expire NOW
         })
       );
-      return res.status(200).json({ message: "logged out" });
+
+      res.writeHead(302, { Location: "/" });
+      return res.end();
     }
+
 
     
     // auth
