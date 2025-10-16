@@ -126,6 +126,7 @@ export default function handler(req, res) {
         if (current && Date.now() - current.lastUpdate >= 15000) {
           state.status[auth_user].value = false;
           state.code[auth_user] = ""; // so u dont auto-execute shit from ur last session (learnt this the hard way 3;)
+          state.script_id[auth_user] = ""; // same thing ^^ :p
           global.__STATE__ = state;
         }
       }, 15000);
