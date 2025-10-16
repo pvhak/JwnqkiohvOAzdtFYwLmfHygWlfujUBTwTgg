@@ -134,16 +134,25 @@ export default function handler(req, res) {
     
     if (path.endsWith("/getcode")) {
       const message = state.code[auth_user] ?? "";
-
-      let script_id;
-      do {
-        script_id = gen_scriptid();
-      } while (script_id === lscript_id);
-      lscript_id = script_id;
-
-      return res.status(200).json({user: auth_user,code: message,"script-id": script_id,});
+      const script_id = state.scriptIds[auth_user] ?? "";
+      
+      return res.status(200).json({
+        user: auth_user,
+        code: message,
+        "script-id": script_id,
+      });
     }
 
+    if (path.endsWith("/ccode")) {
+      if (!code) return res.status(400).json({ error: "missing code" });
+      state.code[auth_user] = code;
+      const n_scid = gen_scriptid();
+      state.scriptIds[auth_user] = n_scid;
+      global.__STATE__ = state;
+
+      return res.status(200).json({user: auth_user,code: code,"script-id": n_scid,});
+    }
+    
     if (path.endsWith("/ccode")) {
       if (!code) return res.status(400).json({ error: "missing code" });
       state.code[auth_user] = code;
