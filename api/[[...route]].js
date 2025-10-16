@@ -3,7 +3,9 @@ import cookie from "cookie";
 let state = global.__STATE__ || {
   status: {},
   code: {},
+  script_ids: {}, 
 };
+
 
 function gen_scriptid() { // im using this to update my exe logic *\0/*
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
@@ -25,7 +27,7 @@ function getusernames() {
   return users;
 }
 
-let lscript_id = null; // to avoid duplicates of scriptids (is this even possible..?)
+let lscript_id = null; // to avoid duplicates of script_ids (is this even possible..?)
 
 export default function handler(req, res) {
   try {
@@ -134,7 +136,7 @@ export default function handler(req, res) {
     
     if (path.endsWith("/getcode")) {
       const message = state.code[auth_user] ?? "";
-      const script_id = state.scriptIds[auth_user] ?? "";
+      const script_id = state.script_ids[auth_user] ?? "";
       
       return res.status(200).json({
         user: auth_user,
@@ -147,7 +149,7 @@ export default function handler(req, res) {
       if (!code) return res.status(400).json({ error: "missing code" });
       state.code[auth_user] = code;
       const n_scid = gen_scriptid();
-      state.scriptIds[auth_user] = n_scid;
+      state.script_ids[auth_user] = n_scid;
       global.__STATE__ = state;
 
       return res.status(200).json({user: auth_user,code: code,"script-id": n_scid,});
