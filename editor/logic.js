@@ -115,3 +115,5 @@ window.addEventListener("DOMContentLoaded", () => {
     window.location.href = "/api/logout";
   });
 });
+
+notify("Loaded!", "info", 3500);
