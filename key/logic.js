@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const user = document.getElementById("username").value.trim();
     const pass = document.getElementById("password").value.trim();
     if (!user || !pass) {
-      alert("Enter password/username!!");
+      notify("Enter password/username!", "error", 3500);
       console.error("oh my fucking god i hate this retard so much");
       return;
     }
@@ -34,11 +34,11 @@ window.addEventListener("DOMContentLoaded", () => {
       if (data.redirect) {
         window.location.href = data.redirect;
       } else {
-        alert("wrong key");
+        notify("Wrong password or username!", "error", 3500);
       }
     } catch (err) {
       console.error("Login failed:", err);
-      alert("wrong password or username!");
+      notify("Wrong password or username!", "error", 3500);
     }
   });
 });
