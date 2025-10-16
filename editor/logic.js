@@ -15,9 +15,28 @@ function updstatus(status) {
   }
 }
 
+async function upd_pfp(username) {
+  const pimg = document.querySelector("#pfp_frame img.logo");
+  if (!pimg) return;
+
+  if (!username) {
+    pimg.src = "/default_pfp.png";
+    return;
+  }
+
+  const pfp_url = `/imgs/pfps/${username}.png`;
+
+  try {
+    const resp = await fetch(pfp_url, { method: "HEAD" });
+    if (resp.ok) {pimg.src = pfp_url;} else {pimg.src = "/default_pfp.png";
+    }
+  } catch (err) {console.error("error fetching:", err); pimg.src = "/default_pfp.png";}
+}
+
 function upd_username(username) {
   const un_span = document.querySelector(".top-right-bar .username");
   if (un_span && username) { un_span.textContent = username; }
+  upd_pfp(username);
 }
 
 async function poll_status() {
