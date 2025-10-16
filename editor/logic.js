@@ -75,39 +75,43 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //////////////////////////////////////////////////////////////////////////////
 
-const pfp_frame = document.getElementById("pfp_frame");
-const lo_btn = document.getElementById("lu-btn");
-let ttip_active = false;
+window.addEventListener("DOMContentLoaded", () => {
+  const pfp_frame = document.getElementById("pfp_frame");
+  const lo_btn = document.getElementById("lu-btn");
+  let ttip_active = false;
 
-pfp_frame.addEventListener("mouseenter", () => {
-  if (!ttip_active) pfp_frame.classList.add("hover");
-});
-pfp_frame.addEventListener("mouseleave", () => {
-  if (!ttip_active) pfp_frame.classList.remove("hover");
-});
+  if (!pfp_frame || !lo_btn) return;
 
-pfp_frame.addEventListener("click", (e) => {
-  e.stopPropagation();
-  if (ttip_active) {
-    ttip_active = false;
-    pfp_frame.classList.remove("active");
-    pfp_frame.classList.add("hover");
-  } else {
-    ttip_active = true;
-    pfp_frame.classList.add("active");
-    pfp_frame.classList.remove("hover");
-  }
-});
+  pfp_frame.addEventListener("mouseenter", () => {
+    if (!ttip_active) pfp_frame.classList.add("hover");
+  });
+  pfp_frame.addEventListener("mouseleave", () => {
+    if (!ttip_active) pfp_frame.classList.remove("hover");
+  });
 
-document.addEventListener("click", () => {
-  if (ttip_active) {
-    ttip_active = false;
-    pfp_frame.classList.remove("active");
-    pfp_frame.classList.remove("hover");
-  }
-});
+  pfp_frame.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (ttip_active) {
+      ttip_active = false;
+      pfp_frame.classList.remove("active");
+      pfp_frame.classList.add("hover");
+    } else {
+      ttip_active = true;
+      pfp_frame.classList.add("active");
+      pfp_frame.classList.remove("hover");
+    }
+  });
 
-lo_btn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  window.location.href = "/api/logout";
+  document.addEventListener("click", () => {
+    if (ttip_active) {
+      ttip_active = false;
+      pfp_frame.classList.remove("active");
+      pfp_frame.classList.remove("hover");
+    }
+  });
+
+  lo_btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    window.location.href = "/api/logout";
+  });
 });
