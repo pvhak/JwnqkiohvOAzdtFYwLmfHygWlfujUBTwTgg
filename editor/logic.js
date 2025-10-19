@@ -20,11 +20,11 @@ async function upd_pfp(username) {
   if (!pimg) return;
 
   if (!username) {
-    pimg.src = "/imgs/default_pfp.png";
+    pimg.src = "/assets/default_pfp.png";
     return;
   }
 
-  const pfp_url = `/imgs/pfps/${username}.png`;
+  const pfp_url = `/assets/pfps/${username}.png`;
 
   try {
     const resp = await fetch(pfp_url, { method: "HEAD" });
