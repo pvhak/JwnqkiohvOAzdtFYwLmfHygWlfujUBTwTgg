@@ -34,10 +34,12 @@ window.addEventListener("DOMContentLoaded", () => {
       if (data.redirect) {
         window.location.href = data.redirect;
       } else {
+        document.getElementById("password").value = "";
         notify("Wrong password or username!", "error", 3500);
       }
     } catch (err) {
       console.error("Login failed:", err);
+      document.getElementById("password").value = "";
       notify("Wrong password or username!", "error", 3500);
     }
   });
