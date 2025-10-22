@@ -122,6 +122,11 @@ body {
   color: #ffffff;
 }
 
+.input-icon {
+  width: 24px;
+  height: 24px;
+}
+
 .login-button:active {
   background-color: #1a1a1c;
   border-color: #2a2d31;
