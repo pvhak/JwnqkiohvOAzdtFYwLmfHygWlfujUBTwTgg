@@ -15,11 +15,11 @@ window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("login-btn").addEventListener("click", async function () {
     const user = document.getElementById("username").value.trim();
     const pass = document.getElementById("password").value.trim();
-    if (!user || !pass) {
-      notify("Enter password/username!", "error", 3500);
-      console.error("oh my fucking god i hate this retard so much");
-      return;
-    }
+
+    // better than username/password
+    if (!user) { notify("Please enter a username!", "error", 3500); return; }
+    if (!pass) { notify("Enter a valid password!", "error", 3500); return; }
+
 
 
     try {
