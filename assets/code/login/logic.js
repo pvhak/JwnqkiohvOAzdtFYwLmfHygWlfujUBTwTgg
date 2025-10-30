@@ -7,20 +7,6 @@ window.addEventListener("DOMContentLoaded", () => {
       if (data && typeof data.status !== "undefined") {
         window.location.href = "/editor";
       }
-    } catch (err) {console.error("failed to check:", err);}
-  }
-
-  checktsout();
-
- window.addEventListener("DOMContentLoaded", () => {
-  async function checktsout() {
-    try {
-      const resp = await fetch("/api/getstatus", { credentials: "include" });
-      if (resp.status === 403) return;
-      const data = await resp.json();
-      if (data && typeof data.status !== "undefined") {
-        window.location.href = "/editor";
-      }
     } catch (err) {
       console.error("failed to check:", err);
     }
