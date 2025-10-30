@@ -34,8 +34,8 @@ export default function handler(req, res) {
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+    
     if (req.method === "OPTIONS") return res.status(200).end();
-
     const { pathname } = new URL(req.url, `http://${req.headers.host}`);
     const path = pathname.toLowerCase();
     const { user, password, value, code } = req.query;
@@ -43,10 +43,7 @@ export default function handler(req, res) {
 
     // login
     if (path.endsWith("/login")) {
-      if (!user || !password || !users[user] || password !== users[user]) {
-        return res.status(403).json({ error: "wrong key" });
-      }
-
+      if (!user || !password || !users[user] || password !== users[user]) {return res.status(403).json({ error: "wrong key" });}
       const expires = new Date(Date.now() + 2 * 60 * 60 * 1000); // 2h
       res.setHeader(
         "Set-Cookie",
@@ -82,9 +79,8 @@ export default function handler(req, res) {
       return res.end();
     }
 
-
+    //////////////////
     
-    // auth
     let auth_user = null;
     if (req.headers.cookie) {
       try {
@@ -101,6 +97,8 @@ export default function handler(req, res) {
     if (!auth_user && user && password && users[user] && password === users[user]) {auth_user = user;}
     if (!auth_user) {return res.status(403).json({ error: "not authenticated" });}
 
+    //////////////////
+    
     if (path.endsWith("/getstatus")) {
       const user_status = state.status[auth_user];
       let isctd = false;
@@ -144,15 +142,19 @@ export default function handler(req, res) {
       });
     }
 
-    if (path.endsWith("/ccode")) {
-      if (!code) return res.status(400).json({ error: "missing code" });
-      state.code[auth_user] = code;
-      const n_scid = gen_scriptid();
-      state.script_id[auth_user] = n_scid;
-      global.__STATE__ = state;
+  if (path.endsWith("/ccode")) {
+    if (req.method !== "POST") return res.status(405).end();
+    const { code } = req.body || {};
+    if (!code) return res.status(400).json({ error: "missing code" });
 
-      return res.status(200).json({user: auth_user,code: code,"script-id": n_scid,});
-    }
+    state.code[auth_user] = code;
+    const n_scid = gen_scriptid();
+    state.script_id[auth_user] = n_scid;
+    global.__STATE__ = state;
+
+    return res.status(200).json({ user: auth_user, code, "script-id": n_scid });
+  }
+
     
 
     return res.status(404).json({ error: "not found" });
