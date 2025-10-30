@@ -3,11 +3,11 @@ import cookie from "cookie";
 let state = global.__STATE__ || {
   status: {},
   code: {},
-  script_id: {}, 
+  script_id: {},
 };
 
 
-function gen_scriptid() { // im using this to update my exe logic *\0/*
+function gen_scriptid() {
   const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
   let id = "";
   for (let i = 0; i < 12; i++) {
@@ -27,23 +27,41 @@ function getusernames() {
   return users;
 }
 
-export default function handler(req, res) {
+
+export default async function handler(req, res) {
   try {
-    // cors
+    // CORS
     res.setHeader("Access-Control-Allow-Origin", "https://8967.vercel.app");
     res.setHeader("Access-Control-Allow-Credentials", "true");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    
     if (req.method === "OPTIONS") return res.status(200).end();
+    
     const { pathname } = new URL(req.url, `http://${req.headers.host}`);
     const path = pathname.toLowerCase();
-    const { user, password, value, code } = req.query;
     const users = getusernames();
 
+    // i dont like json really
+    let body = {};
+    if (req.method !== "GET" && req.body) {
+      body = req.body;
+    } else if (req.method !== "GET") {
+      try {
+        const chunks = [];
+        for await (const chunk of req) chunks.push(chunk);
+        const raw = Buffer.concat(chunks).toString();
+        if (raw) body = JSON.parse(raw);
+      } catch { body = {}; }
+    }
+
+    const { user, password, value, code } = body;
+    
     // login
     if (path.endsWith("/login")) {
+      if (req.method !== "POST")
+        return res.status(405).json({ error: "method not allowed" });
       if (!user || !password || !users[user] || password !== users[user]) {return res.status(403).json({ error: "wrong key" });}
+
       const expires = new Date(Date.now() + 2 * 60 * 60 * 1000); // 2h
       res.setHeader(
         "Set-Cookie",
@@ -71,7 +89,7 @@ export default function handler(req, res) {
           secure: true,
           sameSite: "none",
           path: "/",
-          expires: new Date(0), // expire NOW
+          expires: new Date(0), // NOWWWWWWWW
         })
       );
 
@@ -95,7 +113,8 @@ export default function handler(req, res) {
     }
 
     if (!auth_user && user && password && users[user] && password === users[user]) {auth_user = user;}
-    if (!auth_user) {return res.status(403).json({ error: "not authenticated" });}
+    if (!auth_user)
+      return res.status(403).json({ error: "not authenticated" });
 
     //////////////////
     
@@ -112,48 +131,48 @@ export default function handler(req, res) {
       return res.status(200).json({ user: auth_user, status: isctd });
     }
 
+
     if (path.endsWith("/cstatus")) {
+      if (req.method !== "POST")
+        return res.status(405).json({ error: "method not allowed" });
+
       const new_status =
-        value !== undefined ? value === "true" : !state.status[auth_user]?.value;
+        typeof value !== "undefined"
+          ? value === true || value === "true"
+          : !state.status[auth_user]?.value;
+
       state.status[auth_user] = { value: new_status, lastUpdate: Date.now() };
 
       setTimeout(() => {
         const current = state.status[auth_user];
         if (current && Date.now() - current.lastUpdate >= 15000) {
           state.status[auth_user].value = false;
-          state.code[auth_user] = ""; // so u dont auto-execute shit from ur last session (learnt this the hard way 3;)
-          state.script_id[auth_user] = ""; // same thing ^^ :p
+          state.code[auth_user] = "";
+          state.script_id[auth_user] = "";
           global.__STATE__ = state;
         }
       }, 15000);
 
       global.__STATE__ = state;
-      return res.status(200).json({ user: auth_user, status: state.status[auth_user].value });
-    }
-    
-    if (path.endsWith("/getcode")) {
-      const message = state.code[auth_user] ?? "";
-      const script_id = state.script_id[auth_user] ?? "";
-      
       return res.status(200).json({
         user: auth_user,
-        code: message,
-        "script-id": script_id,
+        status: state.status[auth_user].value,
       });
     }
 
-  if (path.endsWith("/ccode")) {
-    if (req.method !== "POST") return res.status(405).end();
-    const { code } = req.body || {};
-    if (!code) return res.status(400).json({ error: "missing code" });
+    if (path.endsWith("/ccode")) {
+      if (req.method !== "POST")
+        return res.status(405).json({ error: "method not allowed" });
 
-    state.code[auth_user] = code;
-    const n_scid = gen_scriptid();
-    state.script_id[auth_user] = n_scid;
-    global.__STATE__ = state;
+      if (!code) return res.status(400).json({ error: "missing code" });
 
-    return res.status(200).json({ user: auth_user, code, "script-id": n_scid });
-  }
+      state.code[auth_user] = code;
+      const n_scid = gen_scriptid();
+      state.script_id[auth_user] = n_scid;
+      global.__STATE__ = state;
+
+      return res.status(200).json({user: auth_user,code,"script-id": n_scid,});
+    }
 
     
 
