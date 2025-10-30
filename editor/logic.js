@@ -75,9 +75,13 @@ window.addEventListener("DOMContentLoaded", () => {
 
     const code = window.editor.getValue();
     try {
-      const resp = await fetch(`/api/ccode?code=${encodeURIComponent(code)}`, {
-        credentials: "include",
-      });
+    const resp = await fetch("/api/ccode", {
+      method: "POST",
+      credentials: "include",
+      headers: {"Content-Type": "application/json",},
+      body: JSON.stringify({ code }),
+    });
+
 
       if (!resp.ok) {
         console.error("error..", resp.status);
