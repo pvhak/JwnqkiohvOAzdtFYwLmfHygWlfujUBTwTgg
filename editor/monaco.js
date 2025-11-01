@@ -55,7 +55,7 @@ require(["vs/editor/editor.main"], function () {
   }
 
   function close_tab(id) {
-    if (tabs.length === 1) return alert("Must have at least one tab open");
+    if (tabs.length === 1) return notify("Must have at least one tab open", "warning", 4000);
 
     const idx = tabs.findIndex(t => t.id === id);
     tabs.splice(idx, 1);
