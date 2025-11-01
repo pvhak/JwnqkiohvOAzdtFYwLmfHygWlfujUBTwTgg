@@ -174,7 +174,11 @@ export default async function handler(req, res) {
       return res.status(200).json({user: auth_user,code,"script-id": n_scid,});
     }
 
-    
+    if (path.endsWith("/getcode")) {
+      const user_code = state.code[auth_user] || "";
+      const scid = state.script_id[auth_user] || "";
+      return res.status(200).json({ user: auth_user, code: user_code, "script-id": scid });
+    }
 
     return res.status(404).json({ error: "not found" });
   } catch (err) {
