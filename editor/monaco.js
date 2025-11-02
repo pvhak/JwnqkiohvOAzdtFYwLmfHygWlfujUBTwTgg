@@ -50,14 +50,15 @@ require(["vs/editor/editor.main"], function () {
   for (const Key of ["Visible", "Color", "Transparency", "Thickness", "From", "To", "Text", "Size", "Center", "Outline", "OutlineColor", "Position", "TextBounds", "Font", "Data", "Rounding", "NumSides", "Radius", "Filled", "PointA", "PointB", "PointC", "PointD"])
     intellisense1(Key, "Property", "Property for Drawing Library", Key);
 
-  monaco.languages.registerCompletionItemProvider('lua', {
-    tgch: [
-      '.', ':',
-      '_',
-      ...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('')
-    ],
-    provideCompletionItems: function (model, position) {return { suggestions: ccompls };}
-  });
+    monaco.languages.registerCompletionItemProvider('lua', {
+      triggerCharacters: [
+        '.', ':',
+        '_',
+        ...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('')
+      ],
+      provideCompletionItems: function (model, position) {return { suggestions: ccompls };}
+    });
+
 
   
   ////////////// tabs? boi this is tuff isnt it i already know it is heh.
