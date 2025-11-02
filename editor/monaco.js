@@ -15,6 +15,7 @@ require(["vs/editor/editor.main"], function () {
     automaticLayout: true,
     fontSize: 14,
     minimap: { enabled: false },
+    quickSuggestions: { other: true, comments: true, strings: true },
     scrollBeyondLastLine: false,
   });
 
@@ -50,10 +51,14 @@ require(["vs/editor/editor.main"], function () {
     intellisense1(Key, "Property", "Property for Drawing Library", Key);
 
   monaco.languages.registerCompletionItemProvider('lua', {
-    provideCompletionItems: function (model, position) {
-      return { suggestions: ccompls };
-    }
+    tgch: [
+      '.', ':',
+      '_',
+      ...'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('')
+    ],
+    provideCompletionItems: function (model, position) {return { suggestions: ccompls };}
   });
+
   
   ////////////// tabs? boi this is tuff isnt it i already know it is heh.
   
