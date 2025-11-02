@@ -1,7 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
   async function checktsout() {
     try {
-      const resp = await fetch("/api/getstatus", { credentials: "include" });
+      const resp = await fetch("/api/tus", { credentials: "include" });
       if (resp.status === 403) return;
       const data = await resp.json();
       if (data && typeof data.status !== "undefined") {
