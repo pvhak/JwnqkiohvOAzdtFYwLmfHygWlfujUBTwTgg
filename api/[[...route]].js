@@ -118,7 +118,7 @@ export default async function handler(req, res) {
 
     //////////////////
     
-    if (path.endsWith("/getstatus")) {
+    if (path.endsWith("/getus")) {
       const user_status = state.status[auth_user];
       let isctd = false;
       if (user_status) {

@@ -41,7 +41,7 @@ function upd_username(username) {
 
 async function poll_status() {
   try {
-    const resp = await fetch("/api/getstatus", { credentials: "include" });
+    const resp = await fetch("/api/tus", { credentials: "include" });
 
     if (resp.status === 403) {
       window.location.href = "/";
