@@ -42,7 +42,7 @@ require(["vs/editor/editor.main"], function () {
   function createtab() {
     const new_id = Date.now();
     const new_name = `untitled${tabs.length}.lua`;
-    const new_tab = { id: new_id, name: new_name, language: "lua", value: `-- book.club / ${new_name}` };
+    const new_tab = {id: new_id,name: new_name,language: "lua",value: `-- book.club / ${new_name}`};
     tabs.push(new_tab);
 
     const tel = document.createElement("div");
@@ -50,9 +50,9 @@ require(["vs/editor/editor.main"], function () {
     tel.dataset.id = new_id;
     tel.innerHTML = `${new_tab.name} <span class="close-btn">&times;</span>`;
     tcontainer.insertBefore(tel, newtab1);
-
     switch_tab(new_id);
   }
+
 
   function close_tab(id) {
     if (tabs.length === 1) return notify("Must have at least one tab open", "warning", 4000);
@@ -87,7 +87,7 @@ require(["vs/editor/editor.main"], function () {
     srename(e);
   });
 
-  function srename(e) { // start ok thx
+  function srename(e) {
     const tel = e.target.closest(".tab");
     if (!tel || e.target.classList.contains("close-btn")) return;
 
@@ -98,55 +98,45 @@ require(["vs/editor/editor.main"], function () {
 
     const cname = tdata.name.replace(".lua", "");
 
-    const wrapper = document.createElement("div");
-    wrapper.style.display = "inline-flex";
-    wrapper.style.alignItems = "center";
-    wrapper.style.gap = "0";
-    wrapper.style.margin = "0";
-    wrapper.style.padding = "0";
-
     const input = document.createElement("input");
     input.type = "text";
     input.value = cname;
     input.maxLength = 20;
     input.className = "tab-rename-input";
-    input.style.width = Math.max(40, cname.length * 8) + "px";
-    input.style.paddingRight = "0";
-    input.style.marginRight = "0";
-    input.style.borderRight = "none";
-    input.style.display = "inline-block";
-
-    const suffix = document.createElement("span");
-    suffix.textContent = ".lua";
-    suffix.style.pointerEvents = "none";
-    suffix.style.color = "inherit";
-    suffix.style.fontSize = "inherit";
-    suffix.style.marginLeft = "0";
-    suffix.style.paddingLeft = "1px";
+    input.style.background = "transparent";
+    input.style.border = "none";
+    input.style.outline = "none";
+    input.style.color = "inherit";
+    input.style.fontSize = "inherit";
+    input.style.fontFamily = "inherit";
+    input.style.width = Math.max(60, cname.length * 8.5) + "px";
 
     const close_btn = tel.querySelector(".close-btn");
     if (close_btn) close_btn.style.display = "none";
     tel.textContent = "";
-    tel.appendChild(wrapper);
-    wrapper.appendChild(input);
-    wrapper.appendChild(suffix);
-
+    tel.appendChild(input);
     input.focus();
     input.select();
 
-    input.addEventListener("input", () => {input.style.width = Math.max(40, input.value.length * 8) + "px";}); // idk if this will work btw
+    input.addEventListener("input", () => {
+      let val = input.value.replace(".lua", "").trim();
+      if (val.length > 20) val = val.substring(0, 20);
+      input.value = val;
+      input.style.width = Math.max(60, val.length * 8.5) + "px";
+    });
 
-    const frename = () => { // finish ok thx np
-      let new_name = input.value.trim().substring(0, 20);
-      if (new_name === "") new_name = cname;; // cname = current
-      tdata.name = new_name + ".lua";
-      tel.innerHTML = `${new_name}.lua <span class="close-btn">&times;</span>`;
+    const frename = () => {
+      let new_name = input.value.trim();
+      if (new_name === "") new_name = cname;
+      new_name += ".lua";
+      tdata.name = new_name;
+      tel.innerHTML = `${new_name} <span class="close-btn">&times;</span>`;
     };
 
     input.addEventListener("blur", frename);
     input.addEventListener("keydown", e => {
       if (e.key === "Enter") input.blur();
       else if (e.key === "Escape") {input.value = cname; input.blur();}
-    });
+   });
   }
 });
