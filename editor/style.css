@@ -147,7 +147,7 @@ body {
 .tab:hover { color: #ededed; }
 .tab .close-btn {font-weight: bold;color: #888;cursor: pointer;transition: color 0.2s;}
 .tab .close-btn:hover { color: #e93f40; }
-.tab-rename-input {background-color: #2a2b30;border: none;outline: none;color: #fff;font-size: 0.9rem;border-radius: 0.3vh;padding: 0.1vh 0.3vw;width: 100%;}
+.tab-rename-input {color: #fff;border-radius: 0.3vh;padding: 0.1vh 0.3vw;width: 100%;}
 
 #newtab-btn {background-color: #181b1e;border: 0.1vh solid #2b2b2b;border-radius: 0.5vh;color: #999;font-size: 1.2rem;padding: 0.2vh 0.7vw;cursor: pointer;}
 #newtab-btn:hover { color: #fff; }
