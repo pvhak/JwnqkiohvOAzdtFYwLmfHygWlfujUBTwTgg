@@ -87,7 +87,8 @@ require(["vs/editor/editor.main"], function () {
     srename(e);
   });
 
-  function srename(e) {
+
+  function srename(e) { // start thx
     const tel = e.target.closest(".tab");
     if (!tel || e.target.classList.contains("close-btn")) return;
 
@@ -107,28 +108,23 @@ require(["vs/editor/editor.main"], function () {
     input.style.border = "none";
     input.style.outline = "none";
     input.style.color = "inherit";
-    input.style.fontSize = "inherit";
-    input.style.fontFamily = "inherit";
+    input.style.font = "inherit";
     input.style.width = Math.max(60, cname.length * 8.5) + "px";
 
     const close_btn = tel.querySelector(".close-btn");
     if (close_btn) close_btn.style.display = "none";
     tel.textContent = "";
     tel.appendChild(input);
+
     input.focus();
     input.select();
 
-    input.addEventListener("input", () => {
-      let val = input.value.replace(".lua", "").trim();
-      if (val.length > 20) val = val.substring(0, 20);
-      input.value = val;
-      input.style.width = Math.max(60, val.length * 8.5) + "px";
-    });
+    input.addEventListener("input", () => {input.style.width = Math.max(60, input.value.length * 8.5) + "px";});
 
-    const frename = () => {
-      let new_name = input.value.trim();
-      if (new_name === "") new_name = cname;
-      new_name += ".lua";
+    const frename = () => { // finish ok thx np
+      let new_name = input.value.trim().substring(0, 20);
+      if (new_name === "") new_name = cname; // c = current name
+      if (!new_name.endsWith(".lua")) new_name += ".lua";
       tdata.name = new_name;
       tel.innerHTML = `${new_name} <span class="close-btn">&times;</span>`;
     };
@@ -137,6 +133,6 @@ require(["vs/editor/editor.main"], function () {
     input.addEventListener("keydown", e => {
       if (e.key === "Enter") input.blur();
       else if (e.key === "Escape") {input.value = cname; input.blur();}
-   });
+    });
   }
 });
