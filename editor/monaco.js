@@ -99,9 +99,11 @@ require(["vs/editor/editor.main"], function () {
     const cname = tdata.name.replace(".lua", "");
 
     const wrapper = document.createElement("div");
-    wrapper.style.display = "flex";
+    wrapper.style.display = "inline-flex";
     wrapper.style.alignItems = "center";
-    wrapper.style.gap = "0.1vw";
+    wrapper.style.gap = "0";
+    wrapper.style.margin = "0";
+    wrapper.style.padding = "0";
 
     const input = document.createElement("input");
     input.type = "text";
@@ -109,12 +111,18 @@ require(["vs/editor/editor.main"], function () {
     input.maxLength = 20;
     input.className = "tab-rename-input";
     input.style.width = Math.max(40, cname.length * 8) + "px";
+    input.style.paddingRight = "0";
+    input.style.marginRight = "-1px";
+    input.style.borderRight = "none";
+    input.style.display = "inline-block";
 
     const suffix = document.createElement("span");
     suffix.textContent = ".lua";
     suffix.style.pointerEvents = "none";
     suffix.style.color = "inherit";
     suffix.style.fontSize = "inherit";
+    suffix.style.marginLeft = "0";
+    suffix.style.paddingLeft = "0";
 
     const close_btn = tel.querySelector(".close-btn");
     if (close_btn) close_btn.style.display = "none";
