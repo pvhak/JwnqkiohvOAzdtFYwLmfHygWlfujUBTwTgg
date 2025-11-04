@@ -70,8 +70,62 @@ require(["vs/editor/editor.main"], function () {
     if (!tel) return;
 
     const id = parseInt(tel.dataset.id);
-    if (e.target.classList.contains("close-btn")) { close_tab(id); } else { switch_tab(id); }
+    if (e.target.classList.contains("close-btn")) {
+      close_tab(id);
+    } else {
+      switch_tab(id);
+    }
   });
 
   newtab1.addEventListener("click", createtab);
+
+  ////////////// tabs renaming
+
+  tcontainer.addEventListener("dblclick", srename);
+  tcontainer.addEventListener("contextmenu", e => {
+    e.preventDefault();
+    srename(e);
+  });
+
+  function srename(e) { // start ok thx
+    const tel = e.target.closest(".tab");
+    if (!tel || e.target.classList.contains("close-btn")) return;
+
+    const id = parseInt(tel.dataset.id);
+    const tdata = tabs.find(t => t.id === id);
+    if (!tdata) return;
+    if (tel.querySelector("input")) return;
+
+    const cname = tdata.name.replace(".lua", "");
+    const input = document.createElement("input");
+    
+    input.type = "text";
+    input.value = cname;
+    input.maxLength = 20;
+    input.className = "tab-rename-input";
+    input.style.width = Math.max(60, cname.length * 9) + "px";
+
+    const close_btn = tel.querySelector(".close-btn");
+    if (close_btn) close_btn.style.display = "none";
+    tel.textContent = "";
+    tel.appendChild(input);
+    input.focus();
+    input.select();
+
+    input.addEventListener("input", () => {input.style.width = Math.max(60, input.value.length * 9) + "px";}); // idk if this will work btw
+
+    const frename = () => { // finish ok thx np
+      let new_name = input.value.trim().substring(0, 20);
+      if (new_name === "") new_name = cname; // cname = current name
+      if (!new_name.endsWith(".lua")) new_name += ".lua";
+      tdata.name = new_name;
+      tel.innerHTML = `${new_name} <span class="close-btn">&times;</span>`;
+    };
+
+    input.addEventListener("blur", frename);
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter") input.blur();
+      else if (e.key === "Escape") {input.value = cname; input.blur();}
+    });
+  }
 });
