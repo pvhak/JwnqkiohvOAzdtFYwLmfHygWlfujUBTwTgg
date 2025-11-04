@@ -111,12 +111,12 @@ require(["vs/editor/editor.main"], function () {
     input.maxLength = 20;
     input.className = "tab-rename-input";
     input.style.width = Math.max(50, cname.length * 8.5) + "px";
-    input.style.paddingRight = "2px";
+    input.style.paddingRight = "0";
     input.style.marginRight = "0";
     input.style.border = "none";
     input.style.background = "transparent";
     input.style.flexShrink = "0";
-    input.style.minWidth = "30px";
+    input.style.minWidth = "5px";
     input.style.boxSizing = "content-box";
 
     const suffix = document.createElement("span");
