@@ -110,11 +110,14 @@ require(["vs/editor/editor.main"], function () {
     input.value = cname;
     input.maxLength = 20;
     input.className = "tab-rename-input";
-    input.style.width = Math.max(40, cname.length * 8) + "px";
-    input.style.paddingRight = "0";
-    input.style.marginRight = "-1px";
-    input.style.borderRight = "none";
-    input.style.display = "inline-block";
+    input.style.width = Math.max(50, cname.length * 8.5) + "px";
+    input.style.paddingRight = "2px";
+    input.style.marginRight = "0";
+    input.style.border = "none";
+    input.style.background = "transparent";
+    input.style.flexShrink = "0";
+    input.style.minWidth = "30px";
+    input.style.boxSizing = "content-box";
 
     const suffix = document.createElement("span");
     suffix.textContent = ".lua";
@@ -122,7 +125,7 @@ require(["vs/editor/editor.main"], function () {
     suffix.style.color = "inherit";
     suffix.style.fontSize = "inherit";
     suffix.style.marginLeft = "0";
-    suffix.style.paddingLeft = "0";
+    suffix.style.paddingLeft = "1px";
 
     const close_btn = tel.querySelector(".close-btn");
     if (close_btn) close_btn.style.display = "none";
