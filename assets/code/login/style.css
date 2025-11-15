@@ -116,6 +116,24 @@ body {
   color: #97CAE4;
 }
 
+.forgortxt {
+  font-size: 0.8rem;
+  margin-top: -1vh;
+  margin-bottom: 2vh;
+  opacity: 0.7;
+}
+
+.reset-link {
+  color: #97CAE4;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.reset-link:hover {
+  text-decoration: underline;
+}
+
+
 .login-button:hover {
   background-color: #212324;
   border-color: #3d3f44;
