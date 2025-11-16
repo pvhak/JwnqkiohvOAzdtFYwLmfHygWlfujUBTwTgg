@@ -1,6 +1,6 @@
 # todo
 - ~~Make API faster~~
-- Add change-logs to /editor
+- ~~Add change-logs to /editor~~
 - ~~Add tabs to /editor (!)~~
 
 
