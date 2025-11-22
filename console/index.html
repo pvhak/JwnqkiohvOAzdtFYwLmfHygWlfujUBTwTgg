@@ -1,1 +1,52 @@
-aaa
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>8967 | Console</title>
+    <link rel="icon" type="image/png" href="/assets/icon.png">
+    <link rel="stylesheet" href="/console/style.css" />
+    <meta property="og:title" content="book.club">
+    <meta property="og:description" content="A private Roblox utility tool.">
+    <meta property="og:url" content="https://8967.lol/">
+  </head>
+  <body>
+    <div class="top-left-bar">
+      <div class="logo-frame">
+        <img src="/assets/icon.png" class="logo" alt="logo" />
+      </div>
+      <div class="logo-text-container">
+        <span class="main-text">8967.lol</span>
+        <span class="sub-text">© 2025 book.club</span>
+      </div>
+    </div>
+    <div class="sidepanel">
+      <img id="editor_button" src="/assets/editor_icon.png" class="sidebtn">
+      <img id="console_button" src="/assets/console_icon.png" class="sidebtn">
+    </div>
+    <div class="top-right-bar">
+      <div class="pfp-frame" id="pfp_frame">
+        <img src="/assets/default_pfp.png" class="logo" alt="pfp" />
+        <div class="pfp-tooltip" id="pfpTooltip">
+          <span class="username">hackerman6</span>
+          <div class="tooltip-separator"></div>
+          <button id="lu-btn">Log out</button>
+        </div>
+      </div>
+    </div>
+    <div class="content">
+      <div class="editor-wrapper">
+        <div id="tabsc" style="display:none;"></div>
+        <div id="consolemain">
+          <div id="console" class="consolemsg"></div>
+          <div id="rcinputcontainer">
+            <input id="rcinput" type="text" placeholder="rconsole input" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/assets/code/notify.js"></script>
+    <script src="/console/logic.js"></script>
+    <script src="/editor/tabsys.js"></script>
+  </body>
+</html>
