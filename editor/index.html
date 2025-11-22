@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>8967 | Editor</title>
-  <link rel="icon" type="image/png" href="/assets/icon.png">
-  <link rel="stylesheet" href="/editor/style.css" />
-
-  <meta property="og:title" content="book.club">
-  <meta property="og:description" content="A private Roblox utility tool.">
-  <meta property="og:url" content="https://8967.lol/">
-  
-</head>
-<body>
-  <div class="top-left-bar">
-    <div class="logo-frame">
-      <img src="/assets/icon.png" class="logo" alt="logo" />
-    </div>
-    <div class="logo-text-container">
-      <span class="main-text">8967</span>
-      <span class="sub-text">© 2025 book.club</span>
-    </div>
-  </div>
-
-  <div class="top-right-bar">
-    <div class="pfp-frame" id="pfp_frame">
-      <img src="/assets/default_pfp.png" class="logo" alt="pfp" />
-      <div class="pfp-tooltip" id="pfpTooltip">
-        <span class="username">hackerman6</span>
-        <div class="tooltip-separator"></div>
-        <button id="lu-btn">Log out</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>8967 | Editor</title>
+    <link rel="icon" type="image/png" href="/assets/icon.png">
+    <link rel="stylesheet" href="/editor/style.css" />
+    <meta property="og:title" content="book.club">
+    <meta property="og:description" content="A private Roblox utility tool.">
+    <meta property="og:url" content="https://8967.lol/">
+  </head>
+  <body>
+    <div class="top-left-bar">
+      <div class="logo-frame">
+        <img src="https://8967.lol/assets/icon.png" class="logo" alt="logo" />
+      </div>
+      <div class="logo-text-container">
+        <span class="main-text">8967.lol</span>
+        <span class="sub-text">© 2025 book.club</span>
       </div>
     </div>
-  </div>
-
-<div class="content">
-  <div class="panel top-bar-container">
-    <div class="status">
-      <div class="status-dot-container">
-        <div class="status-dot"></div>
+    <div class="sidepanel">
+      <img id="editor_button" src="https://8967.lol/assets/editor_icon.png" class="sidebtn">
+      <img id="console_button" src="https://8967.lol/assets/console_icon.png" class="sidebtn">
+    </div>
+    <div class="top-right-bar">
+      <div class="pfp-frame" id="pfp_frame">
+        <img src="/assets/default_pfp.png" class="logo" alt="pfp" />
+        <div class="pfp-tooltip" id="pfpTooltip">
+          <span class="username">hackerman6</span>
+          <div class="tooltip-separator"></div>
+          <button id="lu-btn">Log out</button>
+        </div>
       </div>
-      <span class="status-text">Not Connected</span>
     </div>
-    <div class="actions">
-      <span id="clear-btn">Clear</span>
-      <span id="execute-btn">Execute</span>
+    <div class="content">
+      <div class="panel top-bar-container">
+        <div class="status">
+          <div class="status-dot-container">
+            <div class="status-dot"></div>
+          </div>
+          <span class="status-text">Not Connected</span>
+        </div>
+        <div class="actions">
+          <span id="clear-btn">Clear</span>
+          <span id="execute-btn">Execute</span>
+        </div>
+      </div>
+      <div class="editor-wrapper">
+        <div id="tabsc">
+          <div class="tab active" data-id="1">main.lua <span class="close-btn">&times;</span>
+          </div>
+          <div id="newtab-btn">+</div>
+        </div>
+        <div id="editor-container">
+          <div id="editor"></div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="editor-wrapper">
-    <div id="tabsc">
-      <div class="tab active" data-id="1">main.lua <span class="close-btn">&times;</span></div>
-      <div id="newtab-btn">+</div>
-    </div>
-    <div id="editor-container">
-      <div id="editor"></div>
-    </div>
-  </div>
-</div>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
-<script src="/assets/code/notify.js"></script>
-<script src="/editor/monaco.js"></script>
-<script src="/editor/logic.js"></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.34.1/min/vs/loader.min.js"></script>
+    <script src="/assets/code/notify.js"></script>
+    <script src="/editor/monaco.js"></script>
+    <script src="/editor/logic.js"></script>
+    <script src="/editor/tabsys.js"></script>
+  </body>
 </html>
