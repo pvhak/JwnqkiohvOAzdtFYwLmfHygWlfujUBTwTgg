@@ -1,3 +1,5 @@
+-- loadstring(game:HttpGet("https://8967.lol/scripts/unc.lua"))()
+
 local passes, fails, undefined = 0, 0, 0
 local running = 0
 
