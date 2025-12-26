@@ -1,0 +1,1 @@
+.content img,.noselect{user-select:none}.noselect,.selectable,.text-block,pre{font-family:Consolas,"Lucida Console",monospace}.content{display:flex;align-items:flex-start;width:100%}.text-block{max-width:700px;white-space:pre-wrap}.content img{margin-left:auto;max-width:300px;height:auto;pointer-events:none}.selectable{user-select:text}pre{margin:0}
