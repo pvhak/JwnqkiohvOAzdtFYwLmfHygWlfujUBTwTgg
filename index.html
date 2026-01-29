@@ -2,18 +2,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>8967.lol</title>
+    <title></title>
     <link rel="stylesheet" href="/assets/code/amazing.css" />
     <link rel="icon" type="image/png" href="https://files.catbox.moe/n06wdt.png">
     <meta property="og:title" content="8967.lol">
     <meta property="og:description" content="">
     <meta property="og:url" content="https://8967.lol/">
+    <script>
+      const domain = window.location.hostname;
+      document.title = domain;
+      document.querySelector('meta[property="og:title"]').setAttribute("content", domain);
+      document.querySelector('meta[property="og:url"]').setAttribute("content", "https://" + domain + "/");
+    </script>
   </head>
   <body>
     <div class="container">
       <img class="swing" src="https://files.catbox.moe/shtute.webp" alt="image">
-        <pre class="text-block"><span class="selectable">loadstring(game:HttpGet("https://8967.lol/scripts/unc.lua"))()
-loadstring(game:HttpGet("https://8967.lol/scripts/iy.lua"))()</span></pre>
+      <pre class="text-block">
+									<span class="selectable">loadstring(game:HttpGet("https://8967.lol/scripts/unc.lua"))()
+loadstring(game:HttpGet("https://8967.lol/scripts/iy.lua"))()</span>
+								</pre>
     </div>
   </body>
 </html>
