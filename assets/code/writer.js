@@ -1,7 +1,7 @@
 const titles = ['8967.lol', '@bestskid', 'gooningto89.lol', '89.187'];
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-async function main() {
+async function write() {
   let index = 0;
 
   while (true) {
@@ -25,4 +25,4 @@ async function main() {
   }
 }
 
-main();
+write();
