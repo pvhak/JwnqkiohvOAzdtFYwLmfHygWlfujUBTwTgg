@@ -4,7 +4,7 @@ const music = document.getElementById('music');
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 
-music.volume = 0.2;
+music.volume = 0.3;
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
