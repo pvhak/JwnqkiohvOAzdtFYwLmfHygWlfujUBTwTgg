@@ -1,4 +1,4 @@
-const titles = ['8967.lol', '@bestskid', 'gooningto89.lol'];
+const titles = ['8967.lol', '@bestskid', 'gooningto89.lol', '89.187'];
 const el = document.getElementById('pagetitletwin');
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
