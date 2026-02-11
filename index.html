@@ -1,34 +1,28 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title></title>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pagetitletwin"></title>
+    
     <link rel="stylesheet" href="/assets/code/amazing.css" />
     <link rel="icon" type="image/png" href="/assets/8888.png">
-
-    <meta property="og:title" content="">
-    <meta property="og:description" content="">
-    <meta property="og:url" content="">
-    <meta property="og:type" content="website">
-
-    <script>
-      const domain = window.location.hostname;
-      const url = window.location.href;
-
-      document.title = domain;
-      document.querySelector('meta[property="og:title"]').content = domain;
-      document.querySelector('meta[property="og:url"]').content = url;
-      document.querySelector('meta[property="og:description"]').content = `hi`;
-    </script>
-  </head>
-
-  <body>
-    <div class="container">
-      <img class="swing" src="/assets/hangingaround.webp" alt="image">
-      <pre class="text-block"><span class="selectable">loadstring(game:HttpGet("https://8967.lol/scripts/unc.lua"))()
-loadstring(game:HttpGet("https://8967.lol/scripts/iy.lua"))()</span></pre>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="splash" class="splash">
+        <div class="splashc">
+            <h1 id="enter" class="splasht">Click to enter</h1>
+        </div>
     </div>
-  </body>
-</html>
+
+    <div id="main" class="mainc hidden">
+        <h1 class="title">8967.lol</h1>
+        <canvas id="particles"></canvas>
+        <div class="footer">@bestskid was here!</div>
+    </div>
+
+    <audio id="music" loop>
+        <source src="https://8967.lol/assets/startingover.mp3" type="audio/mpeg">
+    </audio>
+    <script src="/assets/code/handler.js"></script>
+    <script src="/assets/code/writer.js"></script>
+</body>
