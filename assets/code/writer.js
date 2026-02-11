@@ -1,6 +1,5 @@
 const titles = ['8967.lol', '@bestskid', 'gooningto89.lol', '89.187'];
-const el = document.getElementById('pagetitletwin');
-const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 async function main() {
   let index = 0;
@@ -9,19 +8,19 @@ async function main() {
     const text = titles[index];
 
     for (let i = 0; i <= text.length; i++) {
-      el.textContent = text.slice(0, i);
+      document.title = text.slice(0, i);
       await sleep(150);
     }
 
     await sleep(1500);
 
     for (let i = text.length; i >= 0; i--) {
-      el.textContent = text.slice(0, i);
+      document.title = text.slice(0, i);
       await sleep(100);
     }
 
     await sleep(400);
-
+    
     index = (index + 1) % titles.length;
   }
 }
