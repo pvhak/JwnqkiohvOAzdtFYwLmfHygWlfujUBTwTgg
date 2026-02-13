@@ -64,15 +64,15 @@ function animate() {
 
 animate();
 
-document.getElementById('enter').addEventListener('click', () => {
+splash.addEventListener('click', () => {
     splash.classList.add('goaway');
-    
+
     music.play().catch(err => { console.log(err); });
-    
+
     setTimeout(() => {
         splash.style.display = 'none';
         main.classList.remove('hidden');
-        setTimeout(() => {main.classList.add('visible');}, 50);
+        setTimeout(() => {main.classList.add('visible'); }, 50);
     }, 500);
 });
 
