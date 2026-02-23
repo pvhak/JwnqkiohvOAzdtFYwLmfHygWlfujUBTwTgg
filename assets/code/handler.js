@@ -6,7 +6,7 @@ const ctx = canvas.getContext('2d');
 
 ctx.imageSmoothingEnabled = false;
 
-music.volume = 0.3;
+music.volume = 0.1;
 
 const GRID = 4;
 
@@ -29,6 +29,16 @@ const FLAKE_SHAPES = [
     // 2x2
     [[0,0],[1,0],[0,1],[1,1]],
 ];
+
+const songs = [
+  "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/happier.mp3",
+  "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/i%20just%20wanna%20be%20with%20u.mp3",
+  "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/iloveusomuch.mp3",
+  "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/you%20left%20now%20look%20at%20you.mp3",
+  "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/youhurtme.mp3"
+];
+
+let lsindex = -1;
 
 class p {
     constructor(randomY = false) {
@@ -96,9 +106,24 @@ function animate() {
 
 animate();
 
+function play() {
+    let nindex;
+
+    do {
+        nindex = Math.floor(Math.random() * songs.length);
+    } while (nindex === lsindex);
+
+    lsindex = nindex;
+    music.src = songs[nindex];
+    music.play().catch(err => console.log(err));
+}
+
+music.volume = 0.2;
+music.addEventListener("ended", play);
+
 splash.addEventListener('click', () => {
     splash.classList.add('goaway');
-    music.play().catch(err => { console.log(err); });
+    play();
     setTimeout(() => {
         splash.style.display = 'none';
         main.classList.remove('hidden');
