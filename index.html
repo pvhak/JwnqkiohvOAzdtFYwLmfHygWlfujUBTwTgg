@@ -2,11 +2,35 @@
     <title>!</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/code/amazing.css" />
+        <link rel="stylesheet" href="/assets/code/amazing.css" />
     <link rel="icon" type="image/png" href="/assets/8888.png">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="cursor">
+        <div id="cs" style="animation:spin 4s linear infinite">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                <line x1="12" y1="0"  x2="12" y2="8"  stroke="white" stroke-width="1.5"/>
+                <line x1="12" y1="16" x2="12" y2="24" stroke="white" stroke-width="1.5"/>
+                <line x1="0"  y1="12" x2="8"  y2="12" stroke="white" stroke-width="1.5"/>
+                <line x1="16" y1="12" x2="24" y2="12" stroke="white" stroke-width="1.5"/>
+                <circle cx="12" cy="12" r="3" stroke="white" stroke-width="1.5" fill="none"/>
+                <rect x="11.25" y="11.25" width="1.5" height="1.5" fill="white"/>
+            </svg>
+        </div>
+    </div>
+
+    <div id="scanlines"></div>
+    <div id="vignette"></div>
+    <div id="grain"></div>
+
+    <div class="hud-corner tl"></div>
+    <div class="hud-corner tr"></div>
+    <div class="hud-corner bl"></div>
+    <div class="hud-corner br"></div>
+
+    <div id="coords">0000 / 0000</div>
+
     <div id="splash" class="splash">
         <div class="splashc">
             <h1 id="enter" class="splasht">Click to enter</h1>
@@ -20,7 +44,8 @@
     </div>
 
     <audio id="music"></audio>
-    
+
     <script src="/assets/code/writer.js"></script>
     <script src="/assets/code/handler.js"></script>
 </body>
+</html>
