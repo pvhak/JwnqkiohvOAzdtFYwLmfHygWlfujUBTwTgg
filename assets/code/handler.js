@@ -1,137 +1,143 @@
-const splash = document.getElementById('splash');
-const main = document.getElementById('main');
-const music = document.getElementById('music');
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
+        const cr = document.getElementById('cursor');
+        const cs = document.getElementById('cs');
+        const co = document.getElementById('coords');
 
-ctx.imageSmoothingEnabled = false;
+        document.addEventListener('mousemove', e => {
+            cr.style.left = e.clientX + 'px';
+            cr.style.top  = e.clientY + 'px';
+            co.textContent =
+                String(e.clientX).padStart(4,'0') + ' / ' +
+                String(e.clientY).padStart(4,'0');
+            co.classList.add('active');
+        });
 
-music.volume = 0.1;
+        document.addEventListener('mousedown', () => { cs.style.scale = '0.7'; });
+        document.addEventListener('mouseup',   () => { cs.style.scale = '1';   });
 
-const GRID = 4;
+        const sp = document.getElementById('splash');
+        const mn = document.getElementById('main');
+        const mu = document.getElementById('music');
+        const cv = document.getElementById('particles');
+        const cx = cv.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+        cx.imageSmoothingEnabled = false;
 
-const FLAKE_SHAPES = [
-    // single pixel
-    [[0,0]],
+        const G = 4;
+        cv.width  = window.innerWidth;
+        cv.height = window.innerHeight;
 
-    // small cross
-    [[0,0],[1,0],[-1,0],[0,1],[0,-1]],
+        const FS = [
+            [[0,0]],
+            [[0,0],[1,0],[-1,0],[0,1],[0,-1]],
+            [[0,0],[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]],
+            [[0,0],[2,0],[-2,0],[0,2],[0,-2],[1,1],[-1,1],[1,-1],[-1,-1]],
+            [[0,0],[1,0],[0,1],[1,1]],
+        ];
 
-    // plus w corners
-    [[0,0],[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]],
+        const SG = [
+            "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/i%20just%20wanna%20be%20with%20u.mp3",
+            "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/iloveusomuch.mp3",
+            "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/you%20left%20now%20look%20at%20you.mp3",
+            "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/youhurtme.mp3"
+        ];
 
-    // diamond
-    [[0,0],[2,0],[-2,0],[0,2],[0,-2],[1,1],[-1,1],[1,-1],[-1,-1]],
+        let li = -1;
 
-    // 2x2
-    [[0,0],[1,0],[0,1],[1,1]],
-];
-
-const songs = [
-  "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/i%20just%20wanna%20be%20with%20u.mp3",
-  "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/iloveusomuch.mp3",
-  "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/you%20left%20now%20look%20at%20you.mp3",
-  "https://raw.githubusercontent.com/pvhak/pvhak/e0c9c101a67f1b65b2feccbd1b558475c42a0271/youhurtme.mp3"
-];
-
-let lsindex = -1;
-
-class p {
-    constructor(randomY = false) {
-        this.reset();
-        if (randomY) {
-
-            this.y = Math.floor(Math.random() * canvas.height / GRID) * GRID;
+        class f {
+            constructor(ry = false) {
+                this.rst();
+                if (ry) this.y = Math.floor(Math.random() * cv.height / G) * G;
+            }
+            rst() {
+                this.x   = Math.floor(Math.random() * (cv.width / G)) * G;
+                this.y   = -G * 4;
+                this.sy  = Math.floor(Math.random() * 2) + 1;
+                this.op  = Math.random() * 0.5 + 0.3;
+                this.sc  = 0;
+                this.si  = Math.floor(Math.random() * 30) + 20;
+                this.sd  = Math.random() > 0.5 ? 1 : -1;
+                this.sh  = FS[Math.floor(Math.random() * FS.length)];
+                this.tr  = Math.floor(Math.random() * 2) + 1;
+                this.tc  = 0;
+                this.spn = Math.random() < 0.4;
+                this.ag  = Math.random() * Math.PI * 2;
+                const ds = 45 + Math.random() * 135;
+                this.asp = (ds * Math.PI / 180) / (60 / this.tr);
+                this.asd = Math.random() < 0.5 ? 1 : -1;
+                this.tw  = Math.random() < 0.3;
+                this.tp  = Math.random() * Math.PI * 2;
+                this.ts  = 0.04 + Math.random() * 0.06;
+                this.bo  = this.op;
+            }
+            upd() {
+                this.tc++;
+                if (this.tc < this.tr) return;
+                this.tc = 0;
+                this.y += this.sy * G;
+                this.sc++;
+                if (this.sc >= this.si) {
+                    this.sc = 0;
+                    this.x += this.sd * G;
+                    this.sd *= (Math.random() > 0.3 ? 1 : -1);
+                }
+                if (this.spn) this.ag += this.asp * this.asd;
+                if (this.tw) {
+                    this.tp += this.ts;
+                    this.op = this.bo * (0.5 + 0.5 * Math.sin(this.tp));
+                }
+                if (this.y > cv.height + G * 4) this.rst();
+                if (this.x < 0)           this.x = Math.floor(cv.width / G) * G;
+                if (this.x > cv.width)    this.x = 0;
+            }
+            drw() {
+                cx.fillStyle = `rgba(247,247,247,${this.op})`;
+                if (this.spn && this.sh.length > 1) {
+                    cx.save();
+                    cx.translate(this.x + G / 2, this.y + G / 2);
+                    cx.rotate(this.ag);
+                    for (const [dx, dy] of this.sh)
+                        cx.fillRect(dx * G - G / 2, dy * G - G / 2, G, G);
+                    cx.restore();
+                } else {
+                    for (const [dx, dy] of this.sh)
+                        cx.fillRect(this.x + dx * G, this.y + dy * G, G, G);
+                }
+            }
         }
-        this.angle = Math.floor(Math.random() * 100);
-    }
 
-    reset() {
-        this.x = Math.floor(Math.random() * (canvas.width / GRID)) * GRID;
-        this.y = -GRID * 4;
-        this.speedY = (Math.floor(Math.random() * 2) + 1);
-        this.speedX = Math.floor(Math.random() * 3) - 1;
-        this.opacity = Math.random() * 0.5 + 0.3;
-        this.swingCounter = 0;
-        this.swingInterval = Math.floor(Math.random() * 30) + 20;
-        this.swingDir = Math.random() > 0.5 ? 1 : -1;
-        this.shape = FLAKE_SHAPES[Math.floor(Math.random() * FLAKE_SHAPES.length)];
-        this.angle = 0;
-        this.tickRate = Math.floor(Math.random() * 2) + 1;
-        this.tickCounter = 0;
-    }
+        const pt = [];
+        for (let i = 0; i < 100; i++) pt.push(new f(true));
 
-    update() {
-        this.tickCounter++;
-        if (this.tickCounter < this.tickRate) return;
-        this.tickCounter = 0;
+        function ani() {
+            cx.clearRect(0, 0, cv.width, cv.height);
+            pt.forEach(p => { p.upd(); p.drw(); });
+            requestAnimationFrame(ani);
+        }
+        ani();
 
-        this.y += this.speedY * GRID;
-
-        this.swingCounter++;
-        if (this.swingCounter >= this.swingInterval) {
-            this.swingCounter = 0;
-            this.x += this.swingDir * GRID;
-            this.swingDir *= (Math.random() > 0.3 ? 1 : -1);
+        function ply() {
+            let n;
+            do { n = Math.floor(Math.random() * SG.length); } while (n === li);
+            li = n;
+            mu.src = SG[n];
+            mu.play().catch(() => {});
         }
 
-        if (this.y > canvas.height + GRID * 4) this.reset();
-        if (this.x < 0) this.x = Math.floor(canvas.width / GRID) * GRID;
-        if (this.x > canvas.width) this.x = 0;
-    }
+        mu.volume = 0.2;
+        mu.addEventListener('ended', ply);
 
-    draw() {
-        ctx.fillStyle = `rgba(247, 247, 247, ${this.opacity})`;
-        for (const [dx, dy] of this.shape) {
-            ctx.fillRect(this.x + dx * GRID, this.y + dy * GRID, GRID, GRID);
-        }
-    }
-}
+        sp.addEventListener('click', () => {
+            sp.classList.add('goaway');
+            ply();
+            setTimeout(() => {
+                sp.style.display = 'none';
+                mn.classList.remove('hidden');
+                setTimeout(() => mn.classList.add('visible'), 50);
+            }, 500);
+        });
 
-const particles = [];
-
-for (let i = 0; i < 100; i++) {
-    particles.push(new p(true));
-}
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(particle => { particle.update(); particle.draw(); });
-    requestAnimationFrame(animate);
-}
-
-animate();
-
-function play() {
-    let nindex;
-
-    do {
-        nindex = Math.floor(Math.random() * songs.length);
-    } while (nindex === lsindex);
-
-    lsindex = nindex;
-    music.src = songs[nindex];
-    music.play().catch(err => console.log(err));
-}
-
-music.volume = 0.2;
-music.addEventListener("ended", play);
-
-splash.addEventListener('click', () => {
-    splash.classList.add('goaway');
-    play();
-    setTimeout(() => {
-        splash.style.display = 'none';
-        main.classList.remove('hidden');
-        setTimeout(() => { main.classList.add('visible'); }, 50);
-    }, 500);
-});
-
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    ctx.imageSmoothingEnabled = false;
-});
+        window.addEventListener('resize', () => {
+            cv.width  = window.innerWidth;
+            cv.height = window.innerHeight;
+            cx.imageSmoothingEnabled = false;
+        });
