@@ -1,0 +1,252 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Share+Tech+Mono&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:#0a0a0a;color:#e8e8d0;font-family:'Share Tech Mono',monospace;}
+  .site{background:#0d0b08;min-height:100vh;padding:0;overflow-x:hidden;}
+  .hero{background:#0d0b08;border-bottom:2px solid #8b0000;padding:2rem 1.5rem;text-align:center;position:relative;}
+  .hero::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 40px,rgba(139,0,0,0.04) 40px,rgba(139,0,0,0.04) 41px);}
+  .tagline{font-size:13px;color:#7a7a60;margin-top:0.5rem;letter-spacing:4px;text-transform:uppercase;}
+  .ticker{background:#8b0000;color:#fff;font-size:11px;padding:6px 0;white-space:nowrap;overflow:hidden;}
+  .ticker-inner{display:inline-block;animation:scroll 28s linear infinite;}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .section{padding:1.5rem;border-bottom:1px solid #2a2510;}
+  .section-title{font-size:11px;letter-spacing:6px;text-transform:uppercase;color:#8b0000;margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+  .section-title::after{content:'';flex:1;height:1px;background:#8b0000;opacity:0.4;}
+  .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;}
+  .card{background:#131108;border:1px solid #2a2510;border-radius:4px;padding:1rem;position:relative;overflow:hidden;}
+  .card::before{content:'89';position:absolute;right:-8px;bottom:-12px;font-size:80px;font-weight:900;color:#8b0000;opacity:0.06;font-family:'Special Elite',serif;line-height:1;}
+  .card-num{font-size:28px;font-weight:700;color:#8b0000;font-family:'Special Elite',serif;}
+  .card-label{font-size:11px;color:#7a7a60;margin-top:4px;line-height:1.5;}
+  .card-proof{font-size:10px;color:#4a4a35;margin-top:8px;border-top:1px solid #2a2510;padding-top:8px;line-height:1.6;}
+  .conspiracy{background:#0f0a05;border:1px solid #3a2000;border-radius:4px;padding:1rem;margin-top:12px;}
+  .conspiracy p{font-size:12px;color:#8a7a50;line-height:1.8;}
+  .conspiracy em{color:#c8a030;font-style:normal;}
+  .string-board{background:#0a0805;border:1px solid #2a2510;border-radius:4px;padding:1rem;position:relative;}
+  .node{display:inline-block;background:#8b0000;color:#fff;font-size:10px;padding:3px 8px;border-radius:2px;margin:4px;font-family:'Special Elite',serif;}
+  .arrow{color:#4a4a35;margin:0 2px;font-size:14px;}
+  .marquee-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;}
+  .proof-list{list-style:none;}
+  .proof-list li{font-size:12px;color:#7a7a60;padding:6px 0;border-bottom:1px solid #1a1a10;display:flex;gap:8px;}
+  .proof-list li::before{content:'89';color:#8b0000;font-size:10px;flex-shrink:0;margin-top:1px;}
+  .alert-box{background:#1a0505;border:1px solid #8b0000;border-radius:4px;padding:1rem;margin-top:12px;}
+  .alert-box p{font-size:11px;color:#c84040;line-height:1.8;}
+  .counter{display:flex;align-items:center;gap:1rem;margin-top:12px;}
+  .counter-item{text-align:center;flex:1;}
+  .counter-item .val{font-size:24px;font-weight:700;color:#8b0000;font-family:'Special Elite',serif;}
+  .counter-item .lbl{font-size:10px;color:#4a4a35;text-transform:uppercase;letter-spacing:2px;}
+  .footer{background:#080605;border-top:2px solid #8b0000;padding:1rem 1.5rem;text-align:center;}
+  .footer p{font-size:10px;color:#3a3a28;line-height:2;}
+  .blink{animation:blink 1.4s step-end infinite;}
+  @keyframes blink{50%{opacity:0}}
+  .table{width:100%;font-size:11px;border-collapse:collapse;margin-top:8px;}
+  .table td,.table th{padding:6px 8px;border:1px solid #1a1a10;text-align:left;}
+  .table th{color:#8b0000;font-weight:400;letter-spacing:2px;text-transform:uppercase;font-size:10px;}
+  .table td{color:#6a6a50;}
+  .table td:last-child{color:#c8a030;}
+  .red{color:#8b0000;}
+  .highlight{color:#e8c050;}
+
+  /* === ANIMATED GLITCH === */
+  .num89-wrap{position:relative;display:inline-block;line-height:1;}
+  .num89{font-size:clamp(80px,18vw,160px);font-weight:900;color:#8b0000;letter-spacing:-4px;line-height:1;font-family:'Special Elite',serif;display:block;}
+  .num89-wrap::before,
+  .num89-wrap::after{
+    content:'89';
+    position:absolute;
+    top:0;left:0;
+    font-size:clamp(80px,18vw,160px);
+    font-weight:900;
+    letter-spacing:-4px;
+    line-height:1;
+    font-family:'Special Elite',serif;
+    pointer-events:none;
+  }
+  .num89-wrap::before{
+    color:#ff0000;
+    opacity:0.7;
+    animation:glitch-r 3.5s infinite steps(1);
+  }
+  .num89-wrap::after{
+    color:#00ffff;
+    opacity:0.5;
+    animation:glitch-b 3.5s infinite steps(1);
+  }
+  @keyframes glitch-r{
+    0%,90%{clip-path:inset(100% 0 0 0);transform:translate(0,0);}
+    91%{clip-path:inset(10% 0 75% 0);transform:translate(-4px,0);}
+    92%{clip-path:inset(55% 0 20% 0);transform:translate(3px,-2px);}
+    93%{clip-path:inset(30% 0 50% 0);transform:translate(-6px,1px);}
+    94%{clip-path:inset(70% 0 5% 0);transform:translate(4px,0);}
+    95%{clip-path:inset(15% 0 65% 0);transform:translate(-3px,2px);}
+    96%,100%{clip-path:inset(100% 0 0 0);transform:translate(0,0);}
+  }
+  @keyframes glitch-b{
+    0%,90%{clip-path:inset(100% 0 0 0);transform:translate(0,0);}
+    91%{clip-path:inset(60% 0 10% 0);transform:translate(5px,0);}
+    92%{clip-path:inset(20% 0 60% 0);transform:translate(-4px,1px);}
+    93%{clip-path:inset(80% 0 2% 0);transform:translate(6px,-1px);}
+    94%{clip-path:inset(35% 0 40% 0);transform:translate(-3px,0);}
+    95%{clip-path:inset(5% 0 80% 0);transform:translate(4px,2px);}
+    96%,100%{clip-path:inset(100% 0 0 0);transform:translate(0,0);}
+  }
+</style>
+
+<div class="site">
+  <div class="hero">
+    <div class="tagline">all roads lead to</div>
+    <div class="num89-wrap">
+      <span class="num89">89</span>
+    </div>
+    <div class="tagline" style="margin-top:0.5rem;">they don't want you to know · everything is connected · always was</div>
+  </div>
+
+  <div class="ticker">
+    <span class="ticker-inner">
+      &nbsp;&nbsp;&nbsp;89 IS EVERYWHERE &nbsp;·&nbsp; THE SPEED OF SOUND IS 343 M/S → 3+4+3 = 10 → 10-1 = 9 → 8+9 = 17 → 17-8 = 9 → 89 &nbsp;·&nbsp; COBALT ATOMIC NUMBER: 27 → 2×7 = 14 → 89-14 = 75 → 7+5 = 12 → 12-3 = 9 → 9+80 = 89 &nbsp;·&nbsp; WAKE UP &nbsp;·&nbsp; 89 = 89 &nbsp;·&nbsp; THE NUMBER OF DAYS IN PREGNANCY BEFORE YOU NOTICE IS 89 &nbsp;·&nbsp; THE EIFFEL TOWER COMPLETED 1889 → 18+89 = 107 → 1+0+7 = 8 → 8+1 = 9 → 89 &nbsp;·&nbsp; THEY KNEW &nbsp;·&nbsp; 89 IS EVERYWHERE &nbsp;·&nbsp; THE SPEED OF SOUND IS 343 M/S → 3+4+3 = 10 → 10-1 = 9 → 8+9 = 17 → 17-8 = 9 → 89 &nbsp;·&nbsp; COBALT ATOMIC NUMBER: 27 → 2×7 = 14 → 89-14 = 75 → 7+5 = 12 → 12-3 = 9 → 9+80 = 89 &nbsp;·&nbsp; WAKE UP &nbsp;·&nbsp; 89 = 89 &nbsp;·&nbsp; THE NUMBER OF DAYS IN PREGNANCY BEFORE YOU NOTICE IS 89 &nbsp;·&nbsp; THE EIFFEL TOWER COMPLETED 1889 → 18+89 = 107 → 1+0+7 = 8 → 8+1 = 9 → 89
+    </span>
+  </div>
+
+  <div class="section">
+    <div class="section-title">the mathematics do not lie</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-num">89</div>
+        <div class="card-label">The 24th prime number<br>2+4 = <span class="red">6</span> ... wait</div>
+        <div class="card-proof">Every prime up to 89 was practice. The sequence ENDS at 89 if you stop caring about primes after 89. Coincidence?</div>
+      </div>
+      <div class="card">
+        <div class="card-num">8+9=17</div>
+        <div class="card-label">1+7 = 8. 8 is infinity sideways.</div>
+        <div class="card-proof">Infinity is hiding inside 89. They encoded eternity into a two-digit number and put it everywhere.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">89°F</div>
+        <div class="card-label">Body temp discomfort threshold</div>
+        <div class="card-proof">Your body KNOWS when it hits 89. Evolved response. Ancient knowledge baked into flesh. WHY 89.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">89×89</div>
+        <div class="card-label">= 7921. 7+9+2+1 = <span class="highlight">19</span>. 1+9 = <span class="red">10</span>. 1+0 = 1.</div>
+        <div class="card-proof">89 squared returns to ONE. The universe is a circle. 89 is the beginning and the end.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">π×89</div>
+        <div class="card-label">= 279.6... → 2+7+9 = 18 → 1+8 = <span class="red">9</span></div>
+        <div class="card-proof">Pi itself bows to 89. The infinite constant reduces to nine — the last digit before 89. Pi is circling back.</div>
+      </div>
+      <div class="card">
+        <div class="card-num">e×89</div>
+        <div class="card-label">= 241.9... → 2+4+1 = <span class="highlight">7</span> → 7+89 = 96 → 9+6 = 15 → 1+5 = 6</div>
+        <div class="card-proof">Euler's number tries to escape 89. It cannot. Everything curves back.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">historical fingerprints</div>
+    <table class="table">
+      <tr><th>event</th><th>year</th><th>how 89 is in there</th></tr>
+      <tr><td>French Revolution begins</td><td>1789</td><td>ENDS in 89. France was a message.</td></tr>
+      <tr><td>Berlin Wall falls</td><td>1989</td><td>ENDS in 89. Walls fall when 89 says so.</td></tr>
+      <tr><td>Tiananmen Square</td><td>1989</td><td>Same year. 89 was busy in 1989.</td></tr>
+      <tr><td>Nintendo Game Boy released</td><td>1989</td><td>Gave children a 160×144 screen. 1+6+0+1+4+4 = 16 → 1+6 = 7. 7+89 = 96. 9+6 = 15. Not done yet.</td></tr>
+      <tr><td>Taylor Swift born</td><td>1989</td><td>Named an album 1989. She knows.</td></tr>
+      <tr><td>Eiffel Tower opens</td><td>1889</td><td>100 years before 1989. 100 = 89+11. 11 = signal number. The tower is an antenna for 89.</td></tr>
+      <tr><td>WWI armistice</td><td>11/11/1918</td><td>1+9+1+8 = 19 → 1+9 = 10 → 10 + 79 = 89. 79 = the atomic number of gold. Peace = gold = 89.</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">nature cannot escape it</div>
+    <div class="conspiracy">
+      <p>
+        The <em>element Actinium</em> has atomic number <em>89</em>. It is radioactive. It glows blue in the dark. You are not supposed to know this.
+        <br><br>
+        An <em>average human lifetime</em> in some countries: 89 years. They set the limit. Who is "they"? Do the research.
+        <br><br>
+        The <em>Fibonacci sequence</em>: 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, <em>89</em>. The 11th term. 11 again. ALWAYS 11. 89 appears in the spiral that governs galaxies, shells, and sunflowers. They put 89 in NATURE ITSELF.
+        <br><br>
+        A <em>chess board</em> has 64 squares. 64 + 25 = 89. What has 25 squares? A 5×5 grid. Five is the number of fingers. Five fingers, one hand. You are holding 89 right now.
+        <br><br>
+        The <em>speed of light</em> is 299,792,458 m/s. 2+9+9+7+9+2+4+5+8 = <em>55</em>. 55 is the 10th Fibonacci number. The 11th is 89. Light is one step away from 89. Light is <em>almost</em> the truth.
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">the string board</div>
+    <div class="string-board">
+      <div class="marquee-row">
+        <span class="node">ACTINIUM</span><span class="arrow">→</span>
+        <span class="node">ATOMIC# 89</span><span class="arrow">→</span>
+        <span class="node">GLOWS BLUE</span><span class="arrow">→</span>
+        <span class="node">SKY IS BLUE</span><span class="arrow">→</span>
+        <span class="node">SKY HIDES TRUTH</span><span class="arrow">→</span>
+        <span class="node">TRUTH = 89</span>
+      </div>
+      <div class="marquee-row">
+        <span class="node">FIBONACCI</span><span class="arrow">→</span>
+        <span class="node">11TH TERM</span><span class="arrow">→</span>
+        <span class="node">= 89</span><span class="arrow">→</span>
+        <span class="node">SPIRALS IN DNA</span><span class="arrow">→</span>
+        <span class="node">YOU ARE MADE OF 89</span>
+      </div>
+      <div class="marquee-row">
+        <span class="node">1989</span><span class="arrow">→</span>
+        <span class="node">WALL FALLS</span><span class="arrow">→</span>
+        <span class="node">BERLIN</span><span class="arrow">→</span>
+        <span class="node">B=2, E=5, R=18, L=12, I=9, N=14</span><span class="arrow">→</span>
+        <span class="node">2+5+18+12+9+14=60</span><span class="arrow">→</span>
+        <span class="node">60+29=89</span><span class="arrow">→</span>
+        <span class="node">SCHEDULED</span>
+      </div>
+      <div class="marquee-row">
+        <span class="node">TAYLOR SWIFT</span><span class="arrow">→</span>
+        <span class="node">T=20, S=19</span><span class="arrow">→</span>
+        <span class="node">20+19=39</span><span class="arrow">→</span>
+        <span class="node">39+50=89</span><span class="arrow">→</span>
+        <span class="node">50 STATES</span><span class="arrow">→</span>
+        <span class="node">AMERICA KNOWS</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">they tried to hide it in plain sight</div>
+    <ul class="proof-list">
+      <li>The human spine has 33 vertebrae. 33 × 89 = 2937. 2+9+3+7 = 21. 21 = 3×7. 3+7 = 10. 10-1 = 9. Nine. NINE. The digit before completion.</li>
+      <li>A standard piano has 88 keys. EIGHTY EIGHT. One short of 89. They removed the 89th key. That key plays a frequency you are not meant to hear.</li>
+      <li>The ISBN system uses 13 digits. 13 is the 6th Fibonacci number. The 11th is 89. Every book published after 1970 contains 89 in its encoding. Every book is about 89.</li>
+      <li>Route 89 runs through Yellowstone National Park. The supervolcano that could end civilization. They put the warning in the road number. Look at the road signs. They are telling you.</li>
+      <li>The average person blinks 15–20 times per minute. In 89 minutes they blink 1335–1780 times. 1+3+3+5 = 12. 1+7+8+0 = 16. 12+16 = 28. 28+61 = 89. Your eyes are counting down.</li>
+      <li>Area code 89... doesn't exist in North America. They skipped it. Why skip 89? What would happen if you called it?</li>
+      <li>The word "EIGHTY-NINE" has 9 letters before the hyphen and 4 after. 9–4 = 5. 5 is prime. 89 is prime. The name contains its own nature.</li>
+    </ul>
+    <div class="alert-box">
+      <p><span class="blink">⚠</span> CRITICAL: If you add your age to the current year and the sum of those digits equals 8 or 9, you are in a special window. Do not walk under scaffolding. The universe is paying attention. <span class="blink">⚠</span></p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">confirmed sightings this week</div>
+    <div class="counter">
+      <div class="counter-item"><div class="val">89</div><div class="lbl">times on receipts</div></div>
+      <div class="counter-item"><div class="val">89</div><div class="lbl">license plates spotted</div></div>
+      <div class="counter-item"><div class="val">89</div><div class="lbl">dreams reported</div></div>
+      <div class="counter-item"><div class="val">89</div><div class="lbl">other instances</div></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>
+      THIS SITE HAS BEEN VIEWED <span class="red">89</span> TIMES TODAY<br>
+      (it is always 89 times today)<br>
+      <br>
+      89 IS A PRIME NUMBER · IT CANNOT BE DIVIDED · IT STANDS ALONE<br>
+      LIKE THE TRUTH<br>
+      <br>
+      <span class="blink">█</span> DO NOT SHARE THIS PAGE <span class="blink">█</span> SHARE THIS PAGE <span class="blink">█</span> DO NOT SHARE THIS PAGE <span class="blink">█</span>
+    </p>
+  </div>
+</div>
