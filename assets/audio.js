@@ -1,5 +1,17 @@
-const audio = new Audio("https://8967.lol/assets/fat.mp3");
-audio.loop = true;
+const songs = [
+    "https://8967.lol/assets/fat.mp3",
+    "https://8967.lol/assets/theatre.mp3",
+    "https://8967.lol/s.mp3"
+];
+
+let CS = 0;
+const audio = new Audio(songs[CS]);
+
+audio.addEventListener("ended", () => {
+    CS = (CS + 1) % songs.length;
+    audio.src = songs[CS];
+    audio.play().catch(err => console.log("err:", err));
+});
 
 let started = false;
 const events = ["click", "pointerdown", "touchstart", "keydown"];
@@ -9,7 +21,11 @@ function startNOWWW() {
     started = true;
 
     audio.play()
-        .then(() => { events.forEach(e => window.removeEventListener(e, startNOWWW, true));  })
+        .then(() => {
+            events.forEach(e =>
+                window.removeEventListener(e, startNOWWW, true)
+            );
+        })
         .catch(err => {
             console.log("err:", err);
             started = false;
