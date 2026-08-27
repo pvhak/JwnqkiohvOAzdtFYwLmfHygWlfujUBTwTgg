@@ -1,6 +1,6 @@
 const songs = [
-    "https://8967.lol/assets/fat.mp3",
     "https://8967.lol/assets/theatre.mp3",
+    "https://8967.lol/assets/fat.mp3",
     "https://8967.lol/s.mp3"
 ];
 
