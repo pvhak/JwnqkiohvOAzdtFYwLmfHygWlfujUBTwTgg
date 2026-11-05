@@ -2,7 +2,8 @@ const strings = [
     "UD since first build!",
     "sponsored by tea club",
     "this is just a test site btw",
-    "made it bc i was bored"
+    "i'm 89 and i love bacho",
+    "i added trello so u can see todo and stuff"
 ];
 
 const el = document.getElementById("typewriter");
